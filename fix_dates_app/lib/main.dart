@@ -26,7 +26,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Inbox(),
+      debugShowCheckedModeBanner: false,
+      home: LogInYourAccount(),
       routes: {
         //basic routes
         '/Inbox': (context) => Inbox(),
