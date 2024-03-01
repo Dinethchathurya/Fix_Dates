@@ -27,10 +27,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LogInYourAccount(),
+      //home: LogInYourAccount(),
+      initialRoute: '/',
       routes: {
         //basic routes
-        '/Inbox': (context) => Inbox(),
+        '/': (context) => Inbox(),
         '/CreateGroup': (context) => CreateGroup(),
         '/CreateAnEvent': (context) => CreateAnEvent(),
         //login and registrations routes
