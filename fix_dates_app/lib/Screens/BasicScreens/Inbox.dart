@@ -1,6 +1,7 @@
-import 'package:fix_dates_app/components/Index/events_ListTile_widget.dart';
 import 'package:fix_dates_app/components/Index/searchBar.dart';
 import 'package:flutter/material.dart';
+
+import '../../components/Index/events_ListTile_widget.dart';
 
 class Inbox extends StatelessWidget {
   const Inbox({super.key});
@@ -32,20 +33,86 @@ class Inbox extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        events_ListTile_widget(),
-                        events_ListTile_widget(),
-                        events_ListTile_widget(),
-                        events_ListTile_widget(),
-                        events_ListTile_widget(),
-                        events_ListTile_widget(),
-                        events_ListTile_widget(),
-                        events_ListTile_widget(),
-                        events_ListTile_widget(),
-                        events_ListTile_widget(),
-                        events_ListTile_widget(),
-                        events_ListTile_widget(),
-                        events_ListTile_widget(),
-                        events_ListTile_widget(),
+                        events_ListTile_widget(
+                          title: 'Mobile application ',
+                          subtitle: Text('Event created'),
+                          color: Colors.green,
+                          time: '38m',
+                          imagepath:
+                              'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+                        ),
+                        events_ListTile_widget(
+                          title: 'Mobile application ',
+                          subtitle: Text('Event created'),
+                          color: Colors.green,
+                          time: '38m',
+                          imagepath:
+                              'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+                        ),
+                        events_ListTile_widget(
+                          title: 'Mobile application ',
+                          subtitle: Text('Event created'),
+                          color: Colors.green,
+                          time: '38m',
+                          imagepath:
+                              'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+                        ),
+                        events_ListTile_widget(
+                          title: 'Mobile application ',
+                          subtitle: Text('Event created'),
+                          color: Colors.green,
+                          time: '38m',
+                          imagepath:
+                              'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+                        ),
+                        events_ListTile_widget(
+                          title: 'Mobile application ',
+                          subtitle: Text('Event created'),
+                          color: Colors.green,
+                          time: '38m',
+                          imagepath:
+                              'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+                        ),
+                        events_ListTile_widget(
+                          title: 'Mobile application ',
+                          subtitle: Text('Event created'),
+                          color: Colors.green,
+                          time: '38m',
+                          imagepath:
+                              'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+                        ),
+                        events_ListTile_widget(
+                          title: 'Mobile application ',
+                          subtitle: Text('Event created'),
+                          color: Colors.green,
+                          time: '38m',
+                          imagepath:
+                              'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+                        ),
+                        events_ListTile_widget(
+                          title: 'Mobile application ',
+                          subtitle: Text('Event created'),
+                          color: Colors.green,
+                          time: '38m',
+                          imagepath:
+                              'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+                        ),
+                        events_ListTile_widget(
+                          title: 'Mobile application ',
+                          subtitle: Text('Event created'),
+                          color: Colors.green,
+                          time: '38m',
+                          imagepath:
+                              'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+                        ),
+                        events_ListTile_widget(
+                          title: 'Mobile application ',
+                          subtitle: Text('Event created'),
+                          color: Colors.green,
+                          time: '38m',
+                          imagepath:
+                              'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+                        ),
                       ],
                     ),
                   ),

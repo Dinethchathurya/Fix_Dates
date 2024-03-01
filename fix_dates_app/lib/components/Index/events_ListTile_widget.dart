@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 
 class events_ListTile_widget extends StatelessWidget {
-  const events_ListTile_widget({
-    super.key,
-  });
+  events_ListTile_widget(
+      {required this.imagepath,
+      required this.title,
+      required this.color,
+      required this.subtitle,
+      required this.time});
+  String imagepath;
+  String title;
+  Widget? subtitle;
+  Color? color;
+  String time;
 
   @override
   Widget build(BuildContext context) {
@@ -20,25 +28,25 @@ class events_ListTile_widget extends StatelessWidget {
             ),
             child: CircleAvatar(
               backgroundImage: NetworkImage(
-                'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+                imagepath,
               ),
               radius: 30.0,
             ),
           ),
-          title: Text('Mobile application Group'),
-          subtitle: Text('New meeting sheduled'),
+          title: Text(title),
+          subtitle: subtitle,
           trailing: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
                 Icons.circle,
                 size: 15,
-                color: Colors.green,
+                color: color,
               ),
-              SizedBox(
-                  height: 5), // Add some spacing between the icon and the text
+              SizedBox(height: 5),
+              // Add some spacing between the icon and the text
               Text(
-                '38m',
+                time,
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.grey,

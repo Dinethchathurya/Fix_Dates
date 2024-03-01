@@ -10,6 +10,9 @@ class IndexSearchBar extends StatelessWidget {
     return Container(
       height: 40.0,
       child: TextField(
+        onChanged: (value) {
+          print(value);
+        },
         decoration: InputDecoration(
             suffixIcon: Icon(
               Icons.search,

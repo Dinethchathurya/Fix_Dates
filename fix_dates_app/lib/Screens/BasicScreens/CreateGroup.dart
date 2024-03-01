@@ -39,15 +39,46 @@ class CreateGroup extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        events_ListTile_widget(),
-                        events_ListTile_widget(),
-                        events_ListTile_widget(),
-                        events_ListTile_widget(),
-                        events_ListTile_widget(),
-                        events_ListTile_widget(),
-                        events_ListTile_widget(),
-                        events_ListTile_widget(),
-                        events_ListTile_widget(),
+                        events_ListTile_widget(
+                          title: 'Alice',
+                          subtitle: null,
+                          color: Colors.white,
+                          time: '',
+                          imagepath:
+                              'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+                        ),
+                        events_ListTile_widget(
+                          title: 'Alice',
+                          subtitle: null,
+                          color: Colors.white,
+                          time: '',
+                          imagepath:
+                              'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+                        ),
+                        events_ListTile_widget(
+                          title: 'Alice',
+                          subtitle: null,
+                          color: Colors.white,
+                          time: '',
+                          imagepath:
+                              'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+                        ),
+                        events_ListTile_widget(
+                          title: 'Alice',
+                          subtitle: null,
+                          color: Colors.white,
+                          time: '',
+                          imagepath:
+                              'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+                        ),
+                        events_ListTile_widget(
+                          title: 'Alice',
+                          subtitle: null,
+                          color: Colors.white,
+                          time: '',
+                          imagepath:
+                              'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+                        ),
                       ],
                     ),
                   ),
