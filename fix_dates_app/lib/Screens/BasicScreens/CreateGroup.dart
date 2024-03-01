@@ -1,3 +1,4 @@
+import 'package:fix_dates_app/components/CreateGroup/GroupList.dart';
 import 'package:fix_dates_app/components/Index/events_ListTile_widget.dart';
 import 'package:fix_dates_app/components/Index/searchBar.dart';
 import 'package:flutter/material.dart';
@@ -36,51 +37,21 @@ class CreateGroup extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.only(top: 20.0),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        events_ListTile_widget(
-                          title: 'Alice',
-                          subtitle: null,
-                          color: Colors.white,
-                          time: '',
-                          imagepath:
-                              'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+                  child: ListView.builder(
+                    itemCount: events.length,
+                    itemBuilder: (context, index) {
+                      final event = events[index];
+                      return SizedBox(
+                        height: 100, // Specify a fixed height for each tile
+                        child: events_ListTile_widget(
+                          title: event['title'],
+                          subtitle: Text(event['subtitle']),
+                          color: event['color'],
+                          time: event['time'],
+                          imagepath: event['imagePath'],
                         ),
-                        events_ListTile_widget(
-                          title: 'Alice',
-                          subtitle: null,
-                          color: Colors.white,
-                          time: '',
-                          imagepath:
-                              'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
-                        ),
-                        events_ListTile_widget(
-                          title: 'Alice',
-                          subtitle: null,
-                          color: Colors.white,
-                          time: '',
-                          imagepath:
-                              'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
-                        ),
-                        events_ListTile_widget(
-                          title: 'Alice',
-                          subtitle: null,
-                          color: Colors.white,
-                          time: '',
-                          imagepath:
-                              'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
-                        ),
-                        events_ListTile_widget(
-                          title: 'Alice',
-                          subtitle: null,
-                          color: Colors.white,
-                          time: '',
-                          imagepath:
-                              'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
-                        ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
                 ),
               ),
