@@ -1,4 +1,5 @@
 import 'package:fix_dates_app/components/Index/events_ListTile_widget.dart';
+import 'package:fix_dates_app/components/Index/searchBar.dart';
 import 'package:flutter/material.dart';
 
 class Inbox extends StatelessWidget {
@@ -24,23 +25,7 @@ class Inbox extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                height: 40.0,
-                child: TextField(
-                  decoration: InputDecoration(
-                      suffixIcon: Icon(
-                        Icons.search,
-                        size: 35.0,
-                      ),
-                      border: OutlineInputBorder().copyWith(
-                        borderRadius: BorderRadius.circular(50.0),
-                      ),
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 50.0)
-                      // hintText: 'Enter a search term',
-                      ),
-                ),
-              ),
+              IndexSearchBar(),
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.only(top: 20.0),
@@ -71,7 +56,9 @@ class Inbox extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/CreateGroup');
+        },
         shape: CircleBorder(),
         backgroundColor: Colors.black,
         child: Icon(

@@ -14,8 +14,6 @@ class LogInYourAccount extends StatelessWidget {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void signUserIn() {}
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +53,9 @@ class LogInYourAccount extends StatelessWidget {
                         const SizedBox(height: 25),
 
                         GoogleButton(
-                          onTap: signUserIn,
+                          onTap: () {
+                            Navigator.pushNamed(context, '/');
+                          },
                           buttontext: "Continue with Google",
                         ),
 
@@ -160,7 +160,9 @@ class LogInYourAccount extends StatelessWidget {
 
                         GestureDetector(
                           child: MyButton(
-                            onTap: signUserIn,
+                            onTap: () {
+                              Navigator.pushNamed(context, '/');
+                            },
                             buttontext: "Log in",
                           ),
                         ),

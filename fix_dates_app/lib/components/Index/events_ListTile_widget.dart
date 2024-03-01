@@ -11,8 +11,6 @@ class events_ListTile_widget extends StatelessWidget {
       children: [
         ListTile(
           leading: Container(
-            //  margin: EdgeInsetsGeometry(),
-            // padding: EdgeInsets.only(),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
