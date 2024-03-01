@@ -9,7 +9,7 @@ class events_ListTile_widget extends StatelessWidget {
       required this.time});
   String imagepath;
   String title;
-  Widget? subtitle;
+  var subtitle;
   Color? color;
   String time;
 

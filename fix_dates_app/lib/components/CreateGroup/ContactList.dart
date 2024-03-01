@@ -1,102 +1,144 @@
-List<Map<String, dynamic>> students = [
+import 'package:flutter/material.dart';
+
+List<Map<String, dynamic>> contactList = [
   {
-    'name': 'Alice',
-    'imagePath':
-        'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+    'title': 'Alice',
+    'subtitle': null,
+    'color': Colors.white,
+    'time': '',
+    'imagePath': 'https://example.com/path_to_image1.jpg',
   },
   {
-    'name': 'Bob',
-    'imagePath':
-        'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+    'title': 'Bob',
+    'subtitle': null,
+    'color': Colors.white,
+    'time': '',
+    'imagePath': 'https://example.com/path_to_image2.jpg',
   },
   {
-    'name': 'Charlie',
-    'imagePath':
-        'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+    'title': 'Charlie',
+    'subtitle': null,
+    'color': Colors.white,
+    'time': '',
+    'imagePath': 'https://example.com/path_to_image3.jpg',
   },
   {
-    'name': 'David',
-    'imagePath':
-        'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+    'title': 'David',
+    'subtitle': null,
+    'color': Colors.white,
+    'time': '',
+    'imagePath': 'https://example.com/path_to_image4.jpg',
   },
   {
-    'name': 'Eva',
-    'imagePath':
-        'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+    'title': 'Emily',
+    'subtitle': null,
+    'color': Colors.white,
+    'time': '',
+    'imagePath': 'https://example.com/path_to_image5.jpg',
   },
   {
-    'name': 'Frank',
-    'imagePath':
-        'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+    'title': 'Frank',
+    'subtitle': null,
+    'color': Colors.white,
+    'time': '',
+    'imagePath': 'https://example.com/path_to_image6.jpg',
   },
   {
-    'name': 'Grace',
-    'imagePath':
-        'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+    'title': 'Grace',
+    'subtitle': null,
+    'color': Colors.white,
+    'time': '',
+    'imagePath': 'https://example.com/path_to_image7.jpg',
   },
   {
-    'name': 'Henry',
-    'imagePath':
-        'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+    'title': 'Henry',
+    'subtitle': null,
+    'color': Colors.white,
+    'time': '',
+    'imagePath': 'https://example.com/path_to_image8.jpg',
   },
   {
-    'name': 'Ivy',
-    'imagePath':
-        'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+    'title': 'Ivy',
+    'subtitle': null,
+    'color': Colors.white,
+    'time': '',
+    'imagePath': 'https://example.com/path_to_image9.jpg',
   },
   {
-    'name': 'Jack',
-    'imagePath':
-        'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+    'title': 'Jack',
+    'subtitle': null,
+    'color': Colors.white,
+    'time': '',
+    'imagePath': 'https://example.com/path_to_image10.jpg',
   },
   {
-    'name': 'Kathy',
-    'imagePath':
-        'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+    'title': 'Katie',
+    'subtitle': null,
+    'color': Colors.white,
+    'time': '',
+    'imagePath': 'https://example.com/path_to_image11.jpg',
   },
   {
-    'name': 'Leo',
-    'imagePath':
-        'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+    'title': 'Liam',
+    'subtitle': null,
+    'color': Colors.white,
+    'time': '',
+    'imagePath': 'https://example.com/path_to_image12.jpg',
   },
   {
-    'name': 'Mia',
-    'imagePath':
-        'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+    'title': 'Mia',
+    'subtitle': null,
+    'color': Colors.white,
+    'time': '',
+    'imagePath': 'https://example.com/path_to_image13.jpg',
   },
   {
-    'name': 'Nathan',
-    'imagePath':
-        'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+    'title': 'Noah',
+    'subtitle': null,
+    'color': Colors.white,
+    'time': '',
+    'imagePath': 'https://example.com/path_to_image14.jpg',
   },
   {
-    'name': 'Olivia',
-    'imagePath':
-        'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+    'title': 'Olivia',
+    'subtitle': null,
+    'color': Colors.white,
+    'time': '',
+    'imagePath': 'https://example.com/path_to_image15.jpg',
   },
   {
-    'name': 'Peter',
-    'imagePath':
-        'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+    'title': 'Piper',
+    'subtitle': null,
+    'color': Colors.white,
+    'time': '',
+    'imagePath': 'https://example.com/path_to_image16.jpg',
   },
   {
-    'name': 'Quincy',
-    'imagePath':
-        'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+    'title': 'Quinn',
+    'subtitle': null,
+    'color': Colors.white,
+    'time': '',
+    'imagePath': 'https://example.com/path_to_image17.jpg',
   },
   {
-    'name': 'Rachel',
-    'imagePath':
-        'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+    'title': 'Ryan',
+    'subtitle': null,
+    'color': Colors.white,
+    'time': '',
+    'imagePath': 'https://example.com/path_to_image18.jpg',
   },
   {
-    'name': 'Sam',
-    'imagePath':
-        'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+    'title': 'Sophia',
+    'subtitle': null,
+    'color': Colors.white,
+    'time': '',
+    'imagePath': 'https://example.com/path_to_image19.jpg',
   },
   {
-    'name': 'Tina',
-    'imagePath':
-        'https://media.licdn.com/dms/image/D4E03AQEzsOR7x1_qKw/profile-displayphoto-shrink_800_800/0/1666714485434?e=2147483647&v=beta&t=FXjmwhiEwvBvlVdHr605HjnYQ79yY_tnsOMZWshBj_s',
+    'title': 'Tyler',
+    'subtitle': null,
+    'color': Colors.white,
+    'time': '',
+    'imagePath': 'https://example.com/path_to_image20.jpg',
   },
 ];
