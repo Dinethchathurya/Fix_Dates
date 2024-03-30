@@ -42,15 +42,27 @@ class EditProfilePage extends StatelessWidget {
 
 // importing profile photos
   Widget imageProfile() {
-    return Stack(
-      children: <Widget>[
-        CircleAvatar(
-          radius: 80.0,
-          backgroundImage: AssetImage("images/1.jpeg"),
-        ),
-      ],
+    return Center(
+      child: Stack(
+        children: <Widget>[
+          CircleAvatar(
+            radius: 80.0,
+            backgroundImage: NetworkImage(
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1lwwJppbrXMIF_aCdEYkB--qaXJ3emA2dNv-NsXdR2Q&s'),
+          ),
+          Positioned(
+            bottom: 20.0,
+            right: 20.0,
+            child: Icon(
+              Icons.edit,
+              color: Colors.blue,
+            ),
+          ),
+        ],
+      ),
     );
   }
+
 
 // creating textfields
   Widget nameTextField() {
