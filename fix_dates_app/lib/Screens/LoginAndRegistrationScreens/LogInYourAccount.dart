@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+//import 'dart:html';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -8,16 +11,65 @@ import 'package:fix_dates_app/components/create&login/google_button.dart';
 import 'package:fix_dates_app/components/create&login/my_button.dart';
 import 'package:fix_dates_app/components/create&login/my_textfield.dart';
 import 'package:fix_dates_app/components/create&login/passfield.dart';
-import 'package:fix_dates_app/Screens/LoginAndRegistrationScreens/CreateAnAccount.dart';
+class LogInYourAccount extends StatefulWidget {
+  final Function()? onTap;
+   LogInYourAccount({super.key, required this.onTap});
 
-class LogInYourAccount extends StatelessWidget {
-   LogInYourAccount({super.key});
+  @override
+  State<LogInYourAccount> createState() => _LogInYourAccountState();
+}
 
+class _LogInYourAccountState extends State<LogInYourAccount> {
       // text editing controllers
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
-  
-  void signUserIn() {}
+
+  void signUserIn() async {
+    //loading effect
+    showDialog(
+      context: context,
+       builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+       },);
+
+// sign in 
+
+   try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: emailController.text,
+      password: passwordController.text,
+      );
+      //loading off
+      Navigator.pop(context);
+   } on FirebaseAuthException catch (e) {
+//loading off
+    Navigator.pop(context);
+    //error
+    showErrorMessage(e.code);
+   }  
+  }
+
+  //popup for wrong credentials
+  void showErrorMessage(String message) {
+    showDialog(
+      context: context, 
+      builder: (context){
+      return  AlertDialog(
+        backgroundColor: Colors.red,
+        title:Center(
+          child:Text(
+            message,
+      style: TextStyle(color: Colors.white),
+      ), 
+      ) 
+      );
+      }
+      );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +150,7 @@ class LogInYourAccount extends StatelessWidget {
                  ),
            
                 MyTextField(
-                  controller: usernameController,
+                  controller: emailController,
                   hintText: '',
                   obscureText: false,
                 ),
@@ -172,7 +224,7 @@ class LogInYourAccount extends StatelessWidget {
                     ),
                     const SizedBox(width: 4),
                      GestureDetector(
-                      onTap: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => CreateAnAccount())),
+                      onTap: widget.onTap,
                        child: Text(
                         'Sign Up',
                         style: TextStyle(

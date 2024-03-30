@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import, prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // ignore: unnecessary_import
 import 'package:flutter/widgets.dart';
@@ -9,14 +10,102 @@ import 'package:fix_dates_app/components/create&login/my_button.dart';
 import 'package:fix_dates_app/components/create&login/my_textfield.dart';
 import 'package:fix_dates_app/components/create&login/passfield.dart';
 import 'package:fix_dates_app/Screens/LoginAndRegistrationScreens/LoginYourAccount.dart';
+//import 'package:fix_dates_app/Screens/Auth/googleAuth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-class CreateAnAccount extends StatelessWidget {
-   CreateAnAccount({super.key});
+class CreateAnAccount extends StatefulWidget {
+  final Function()? onTap;
+   CreateAnAccount({super.key, required this.onTap});
 
-  final usernameController = TextEditingController();
+  @override
+  State<CreateAnAccount> createState() => _CreateAnAccountState();
+}
+
+class _CreateAnAccountState extends State<CreateAnAccount> {
+   final usernameController = TextEditingController();
+
+  final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
+  final confirmpasswordController = TextEditingController();
 
-  void signUserIn() {}
+  void signUserUp() async {
+     //loading effect
+    // showDialog(
+    //   context: context,
+    //    builder: (context) {
+    //     return const Center(
+    //       child: CircularProgressIndicator(),
+    //     );
+    //    },);
+
+// sign up
+
+   try {
+       if(passwordController.text == confirmpasswordController.text ) {
+         await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: emailController.text,
+      password: passwordController.text,
+      );
+     // Navigator.pop(context);
+       } else {
+        //error
+        showErrorMessage("Passwords don't match");
+       }
+      //loading off
+   } on FirebaseAuthException catch (e) {
+//loading off
+    //Navigator.pop(context);
+    //error
+    showErrorMessage(e.code);
+   }  
+  }
+  
+
+   //popup for wrong credentials
+  void showErrorMessage(String message) {
+    showDialog(
+      context: context, 
+      builder: (context){
+      return  AlertDialog(
+        backgroundColor: Colors.red,
+        title:Center(
+          child:Text(
+            message,
+      style: TextStyle(color: Colors.white),
+      ), 
+      ) 
+      );
+      }
+      );
+  }
+//google
+Future<UserCredential> signInWithGoogle() async {
+  // Trigger the authentication flow
+  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+  // Obtain the auth details from the request
+  final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+  // Create a new credential
+  final credential = GoogleAuthProvider.credential(
+    accessToken: googleAuth?.accessToken,
+    idToken: googleAuth?.idToken,
+  );
+
+  // Once signed in, return the UserCredential
+  return await FirebaseAuth.instance.signInWithCredential(credential);
+}
+
+//google Auth
+
+void googlesignup() async {
+try{
+  await signInWithGoogle();
+} catch (e) {
+  showErrorMessage("Error");
+}
+}
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +136,7 @@ class CreateAnAccount extends StatelessWidget {
                 const SizedBox(height: 25),
            
                 GoogleButton(
-                  onTap: signUserIn,
+                  onTap: googlesignup,
                   buttontext: "Sign up with Google",
                   ),
            
@@ -134,7 +223,7 @@ class CreateAnAccount extends StatelessWidget {
                  ),
            
                 MyTextField(
-                  controller: usernameController,
+                  controller: emailController,
                   hintText: '',
                   obscureText: false,
                 ),
@@ -191,7 +280,7 @@ class CreateAnAccount extends StatelessWidget {
                  ),
            
                 PasswordField(
-                  controller: passwordController,
+                  controller: confirmpasswordController,
                   hintText: '',
                 ),
            
@@ -235,7 +324,7 @@ class CreateAnAccount extends StatelessWidget {
                  const SizedBox(height: 5),
            
                  MyButton(
-                  onTap: signUserIn,
+                  onTap: signUserUp,
                   buttontext: "Get Started",
                  ),
            
@@ -252,7 +341,7 @@ class CreateAnAccount extends StatelessWidget {
                     ),
                     const SizedBox(width: 4),
                      GestureDetector(
-                      onTap: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => LogInYourAccount())),
+                      onTap: widget.onTap,
                        child: Text(
                         'Log in',
                         style: TextStyle(
