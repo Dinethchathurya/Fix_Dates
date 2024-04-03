@@ -8,6 +8,7 @@ class LogOut extends StatelessWidget {
     return Scaffold(
     appBar: AppBar(
       title: Text('Log Out'),
+      centerTitle: true, // Center the title
     ),
       body: Center(
         child: ElevatedButton(
