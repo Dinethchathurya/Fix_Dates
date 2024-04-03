@@ -1,4 +1,5 @@
-import 'package:fix_dates_app/Screens/Auth/auth_page.dart';
+//import 'package:fix_dates_app/Screens/Auth/auth_page.dart';
+import 'package:fix_dates_app/polls&createpolls/userpoll.dart';
 import 'package:flutter/material.dart';
 
 //import Basic Screens
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AuthPage(),
+      home: UserPoll(),
       routes: {
         //basic routes
         '/Inbox': (context) => Inbox(),
