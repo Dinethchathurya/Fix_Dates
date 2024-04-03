@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       //home: LogInYourAccount(),
-      initialRoute: '/LogInYourAccount',
+      initialRoute: '/LogOut',
       routes: {
         //basic routes
         '/': (context) => Inbox(),
