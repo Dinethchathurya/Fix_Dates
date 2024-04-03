@@ -41,6 +41,51 @@ class LogOut extends StatelessWidget {
         ],
         ),
       ),
+      bottomNavigationBar: BottomAppBar(
+        child: Center(
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            ListTile(
+              title: Text(
+                  'Security',
+              style: TextStyle(color: Colors.indigo), //Set text color to indigo
+              ),
+              onTap: () {
+                // Action for Security button
+              },
+            ),
+            ListTile(
+              title: Text(
+                  'Feedback',
+              style: TextStyle(color: Colors.indigo), //Set text color to indigo
+              ),
+              onTap: () {
+                // Action for Feedback button
+              },
+            ),
+            ListTile(
+              title: Text(
+                  'Privacy & Policy',
+              style: TextStyle(color: Colors.indigo), // Set text color to indigo
+              ),
+              onTap: () {
+                // Action for Privacy & Policy button
+              },
+            ),
+            ListTile(
+              title: Text(
+                  'Terms of Services',
+              style: TextStyle(color: Colors.indigo), //Set text color to indigo
+              ),
+              onTap: () {
+                // Action for Terms of Services button
+              },
+            ),
+          ],
+        ),
+        ),
+      ),
     );
   }
 }
