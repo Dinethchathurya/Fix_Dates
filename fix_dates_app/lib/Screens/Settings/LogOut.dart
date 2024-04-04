@@ -5,6 +5,9 @@ class LogOut extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Mock user account details
+    String username = "MaxDepp";
+    String email = "maxdepp@example.com";
     return Scaffold(
     appBar: AppBar(
       title: Text('Log Out'),
@@ -13,25 +16,51 @@ class LogOut extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+          children: [
+          // User account details section
+          Text(
+          'Account Details',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+        SizedBox(height: 8),
+        Text('Username: $username'),
+        Text('Email: $email'),
+        SizedBox(height: 20),
+        // Log out button
         ElevatedButton(
           onPressed: () {
-        //Perform delete account action here
-        //For example, you can show a confirmation dialog
+      // Show confirmation dialog
+      showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            title: Text('Are you sure?'),
+            content: Text('If you log out, you will have to enter your username and password again when logging in.'),
+            actions: <Widget>[
+            TextButton(
+            onPressed: () {
+          Navigator.of(context).pop(); // Close the dialog
+        },
+        child: Text('Cancel'),
+        ),
+              TextButton(
+                onPressed: () {
+                  // Perform logout action
+                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.pop(context);
+                //  Navigator.pushNamed(context, '/');
+                  // Go back to the previous screen
+                },
+                child: Text('Log Out'),
+              ),
+            ],
+        );
       },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blue, // background color for delete account button
-        foregroundColor: Colors.white, // Text color for delete account button
-      ),
-      child: Text('Delete Account'),
-    ),
-    SizedBox(height: 20), // Add some space between buttons
-    ElevatedButton(
-    onPressed: () {
-    // Perform logout action here
-    // For example, you can clear user session or navigate to login page
-    Navigator.pop(context); // Go back to the previous screen
-          },
+    );
+  },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.blue, // background color
             foregroundColor: Colors.white, // Text color
@@ -39,60 +68,10 @@ class LogOut extends StatelessWidget {
           child: Text('Log Out'),
         ),
         ],
-        ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Center(
-        child: ListView(
-          shrinkWrap: true,
-          children: [
-            ListTile(
-              title: Text(
-                  'Security',
-              style: TextStyle(color: Colors.indigo), //Set text color to indigo
-              ),
-              onTap: () {
-                // Action for Security button
-              },
-            ),
-            ListTile(
-              title: Text(
-                  'Feedback',
-              style: TextStyle(color: Colors.indigo), //Set text color to indigo
-              ),
-              onTap: () {
-                // Action for Feedback button
-              },
-            ),
-            ListTile(
-              title: Text(
-                  'Privacy & Policy',
-              style: TextStyle(color: Colors.indigo), // Set text color to indigo
-              ),
-              onTap: () {
-                // Action for Privacy & Policy button
-              },
-            ),
-            ListTile(
-              title: Text(
-                  'Terms of Services',
-              style: TextStyle(color: Colors.indigo), //Set text color to indigo
-              ),
-              onTap: () {
-                // Action for Terms of Services button
-              },
-            ),
-          ],
-        ),
-        ),
       ),
+      
     );
   }
 }
 
-void main() {
-  runApp(MaterialApp(
-    home: LogOut(),
-  ),
-  );
-}
