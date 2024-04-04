@@ -70,7 +70,7 @@ class LogOut extends StatelessWidget {
         ],
       ),
       ),
-      
+
     );
   }
 }
