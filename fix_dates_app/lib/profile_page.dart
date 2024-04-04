@@ -1,7 +1,13 @@
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import './edit_profile_page.dart';
+import 'package:flutter/widgets.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter/services.dart';
 
 class ProfilePage extends StatefulWidget {
+  XFile? _imageFile;
+  final ImagePicker picker = ImagePicker();
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
@@ -11,6 +17,8 @@ class _ProfilePageState extends State<ProfilePage> {
   String cancelButtonName = 'Cancel';
   int currentIndex = 0;
   bool isEditing = false;
+
+  final ImagePicker _picker = ImagePicker(); // Initialize ImagePicker here
 
   // Define controllers for each text field
   TextEditingController nameController =
@@ -90,21 +98,84 @@ class _ProfilePageState extends State<ProfilePage> {
         children: <Widget>[
           CircleAvatar(
             radius: 80.0,
-            backgroundImage: NetworkImage(
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1lwwJppbrXMIF_aCdEYkB--qaXJ3emA2dNv-NsXdR2Q&s'),
+            backgroundImage: widget._imageFile == null
+                ? NetworkImage(
+                        'https://e0.pxfuel.com/wallpapers/932/376/desktop-wallpaper-stylish-boys-cool-d-profile-pics-for-facebook-whatsapp-pretty-boys.jpg')
+                    as ImageProvider
+                : FileImage(File(widget._imageFile!.path)) as ImageProvider,
           ),
           if (!isEditing)
             Positioned(
               bottom: 20.0,
               right: 20.0,
-              child: Icon(
-                Icons.edit,
-                color: Colors.white,
+              child: InkWell(
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: ((builder) => bottomSheet()),
+                  );
+                },
+                child: Icon(
+                  Icons.edit,
+                  color: Colors.white,
+                ),
               ),
             ),
         ],
       ),
     );
+  }
+
+  Widget bottomSheet() {
+    return Container(
+      height: 100.0,
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 20,
+      ),
+      child: Column(
+        children: <Widget>[
+          Text(
+            "Choose Profile Photo",
+            style: TextStyle(
+              fontSize: 20.0,
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              TextButton.icon(
+                icon: Icon(Icons.camera),
+                onPressed: () {
+                  takePhoto(ImageSource.camera);
+                },
+                label: Text("Camara"),
+              ),
+              TextButton.icon(
+                icon: Icon(Icons.image),
+                onPressed: () {
+                  takePhoto(ImageSource.gallery);
+                },
+                label: Text("Gallery"),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  void takePhoto(ImageSource source) async {
+    final pickedFile = await _picker.pickImage(
+      source: source,
+    );
+    setState(() {
+      widget._imageFile = pickedFile;
+    });
   }
 
   Widget nameTextField({TextEditingController? controller}) {
