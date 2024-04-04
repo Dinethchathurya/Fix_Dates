@@ -45,33 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('APP'),
       ),
-      body: Center(
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          ProfilePageWidget.ProfilePage()));
-                },
-                child: const Text('Profile'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => DeleteProfilePage(
-                          onDelete:
-                              handleProfileDelete))); // Pass the onDelete function
-                },
-                child: const Text(
-                    'Delete Account'), // Add a button to navigate to the delete account page
-              ),
-            ],
-          ),
-        ),
-      ),
+      body: Center(),
     );
   }
 }
