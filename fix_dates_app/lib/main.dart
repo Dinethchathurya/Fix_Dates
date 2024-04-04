@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import './profile_page.dart';
+import './profile_page.dart' as ProfilePageWidget;
+import './delete_profile.dart'; // Import the delete profile page
 
 void main() {
   runApp(const MyApp());
@@ -32,6 +33,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  void handleProfileDelete() {
+    // Implement the logic to delete the profile here
+    print('Profile deleted');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,9 +53,20 @@ class _MyHomePageState extends State<MyHomePage> {
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => ProfilePage()));
+                      builder: (BuildContext context) =>
+                          ProfilePageWidget.ProfilePage()));
                 },
-                child: const Text('profile'),
+                child: const Text('Profile'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => DeleteProfilePage(
+                          onDelete:
+                              handleProfileDelete))); // Pass the onDelete function
+                },
+                child: const Text(
+                    'Delete Account'), // Add a button to navigate to the delete account page
               ),
             ],
           ),

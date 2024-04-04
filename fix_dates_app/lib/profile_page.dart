@@ -1,9 +1,6 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter/services.dart';
 
 class ProfilePage extends StatefulWidget {
   XFile? _imageFile;
@@ -41,15 +38,15 @@ class _ProfilePageState extends State<ProfilePage> {
         child: ListView(
           children: <Widget>[
             imageProfile(),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             nameTextField(controller: nameController),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             emailTextField(controller: emailController),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             phoneTextField(controller: phoneController),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             postionTextField(controller: positionController),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             if (isEditing)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -99,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
           CircleAvatar(
             radius: 80.0,
             backgroundImage: widget._imageFile == null
-                ? NetworkImage(
+                ? const NetworkImage(
                         'https://e0.pxfuel.com/wallpapers/932/376/desktop-wallpaper-stylish-boys-cool-d-profile-pics-for-facebook-whatsapp-pretty-boys.jpg')
                     as ImageProvider
                 : FileImage(File(widget._imageFile!.path)) as ImageProvider,
@@ -115,7 +112,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     builder: ((builder) => bottomSheet()),
                   );
                 },
-                child: Icon(
+                child: const Icon(
                   Icons.edit,
                   color: Colors.white,
                 ),
@@ -136,31 +133,31 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       child: Column(
         children: <Widget>[
-          Text(
+          const Text(
             "Choose Profile Photo",
             style: TextStyle(
               fontSize: 20.0,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               TextButton.icon(
-                icon: Icon(Icons.camera),
+                icon: const Icon(Icons.camera),
                 onPressed: () {
                   takePhoto(ImageSource.camera);
                 },
-                label: Text("Camara"),
+                label: const Text("Camara"),
               ),
               TextButton.icon(
-                icon: Icon(Icons.image),
+                icon: const Icon(Icons.image),
                 onPressed: () {
                   takePhoto(ImageSource.gallery);
                 },
-                label: Text("Gallery"),
+                label: const Text("Gallery"),
               ),
             ],
           )
@@ -184,16 +181,16 @@ class _ProfilePageState extends State<ProfilePage> {
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20.0),
-          borderSide: BorderSide(color: Colors.blue),
+          borderSide: const BorderSide(color: Colors.blue),
         ),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.orange,
               width: 2,
             )),
         labelText: "Name",
-        labelStyle: TextStyle(color: Color.fromARGB(255, 0, 140, 255)),
+        labelStyle: const TextStyle(color: Color.fromARGB(255, 0, 140, 255)),
       ),
       onTap: () {
         setState(() {
@@ -209,16 +206,16 @@ class _ProfilePageState extends State<ProfilePage> {
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20.0),
-          borderSide: BorderSide(color: Colors.blue),
+          borderSide: const BorderSide(color: Colors.blue),
         ),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.orange,
               width: 2,
             )),
         labelText: "Email",
-        labelStyle: TextStyle(color: Color.fromARGB(255, 0, 140, 255)),
+        labelStyle: const TextStyle(color: Color.fromARGB(255, 0, 140, 255)),
       ),
       onTap: () {
         setState(() {
@@ -234,16 +231,16 @@ class _ProfilePageState extends State<ProfilePage> {
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20.0),
-          borderSide: BorderSide(color: Colors.blue),
+          borderSide: const BorderSide(color: Colors.blue),
         ),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.orange,
               width: 2,
             )),
         labelText: "Phone",
-        labelStyle: TextStyle(color: Color.fromARGB(255, 0, 140, 255)),
+        labelStyle: const TextStyle(color: Color.fromARGB(255, 0, 140, 255)),
       ),
       onTap: () {
         setState(() {
@@ -263,12 +260,12 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.orange,
               width: 2,
             )),
         labelText: "Position",
-        labelStyle: TextStyle(color: Color.fromARGB(255, 0, 140, 255)),
+        labelStyle: const TextStyle(color: Color.fromARGB(255, 0, 140, 255)),
       ),
       onTap: () {
         setState(() {
