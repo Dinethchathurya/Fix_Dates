@@ -5,6 +5,7 @@ class Settings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isSyncEnabled = false; // Initialize with default value
     return Scaffold(
         appBar: AppBar(
         title: Text('Settings'),
@@ -24,7 +25,37 @@ class Settings extends StatelessWidget {
     SizedBox(height: 8),
     _buildDateFormatDropdown(),
     SizedBox(height: 24),
-    Text(
+      Text(
+        'Time Format',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 18,
+        ),
+      ),
+      SizedBox(height: 8),
+      _buildTimeFormatDropdown(),
+      SizedBox(height: 24),
+      Row(
+        children: [
+          Text(
+            'Date and Time Sync',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
+          SizedBox(width: 8),
+          Switch(
+            value: isSyncEnabled,
+            onChanged: (value) {
+              // Handle synchronization toggle
+              isSyncEnabled = value;
+            },
+          ),
+        ],
+      ),
+      SizedBox(height: 24),
+      Text(
     'Time Zone',
     style: TextStyle(
     fontWeight: FontWeight.bold,
@@ -55,10 +86,31 @@ class Settings extends StatelessWidget {
       },
       decoration: InputDecoration(
         border: OutlineInputBorder(),
-        hintText: 'Select date format',
+        hintText: 'Select Date Format',
       ),
     );
   }
+  Widget _buildTimeFormatDropdown() {
+    // Replace the list of time formats with your own options
+    List<String> timeFormats = ['12-hour', '24-hour'];
+
+    return DropdownButtonFormField<String>(
+      items: timeFormats.map((String format) {
+        return DropdownMenuItem<String>(
+          value: format,
+          child: Text(format),
+        );
+      }).toList(),
+      onChanged: (String? value) {
+        // Handle time format change
+      },
+      decoration: InputDecoration(
+        border: OutlineInputBorder(),
+        hintText: 'Select Time Format',
+      ),
+    );
+  }
+
   Widget _buildTimezoneDropdown() {
     // Replace the list of timezones with your own options
     List<String> timezones = [
@@ -81,7 +133,7 @@ class Settings extends StatelessWidget {
       },
       decoration: InputDecoration(
         border: OutlineInputBorder(),
-        hintText: 'Select timezone',
+        hintText: 'Select Time Zone',
       ),
     );
   }
