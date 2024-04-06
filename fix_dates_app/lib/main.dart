@@ -1,6 +1,4 @@
 //import 'package:fix_dates_app/Screens/Auth/auth_page.dart';
-//flutter
-import 'package:firebase_core/firebase_core.dart';
 import 'package:fix_dates_app/polls&createpolls/userpoll.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +17,8 @@ import 'Screens/Settings/LogOut.dart';
 import 'Screens/Settings/PrivacyPolicy.dart';
 import 'Screens/Settings/Settings.dart';
 import 'Screens/Settings/TermsAndCondition.dart';
+//flutter
+import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -36,19 +36,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/CreateAnAccount',
+      home: UserPoll(),
       routes: {
         //basic routes
         '/Inbox': (context) => Inbox(),
         '/CreateGroup': (context) => CreateGroup(),
         '/CreateAnEvent': (context) => CreateAnEvent(),
         //login and registrations routes
-        '/LogInYourAccount': (context) => LogInYourAccount(
-              onTap: () {},
-            ),
-        '/CreateAnAccount': (context) => CreateAnAccount(
-              onTap: () {},
-            ),
+        '/LogInYourAccount': (context) => LogInYourAccount(onTap: () {  },),
+        '/CreateAnAccount': (context) => CreateAnAccount(onTap: () {  },),
         //settings and settings features routes
         '/Settings': (context) => Settings(),
         '/EditProfile': (context) => EditProfile(),
@@ -57,7 +53,6 @@ class MyApp extends StatelessWidget {
         '/PrivacyPolicy': (context) => PrivacyPolicy(),
         '/TermsAndCondition': (context) => TermsAndCondition(),
         '/LogOut': (context) => LogOut(),
-        '/poll': (context) => UserPoll(),
       },
     );
   }
