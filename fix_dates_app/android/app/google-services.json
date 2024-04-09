@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "356823060418",
+    "project_id": "fixauth-cca12",
+    "storage_bucket": "fixauth-cca12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:356823060418:android:56f21db161b8d71a4dd05b",
+        "android_client_info": {
+          "package_name": "com.example.fix_dates_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "356823060418-5phia3p39bk7d93qpqctja15bmb7rrh3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fix_dates_app",
+            "certificate_hash": "5dea12d7d9e4472813e4f5d8c9713b60fb17f062"
+          }
+        },
+        {
+          "client_id": "356823060418-ussulu18b2tg9n5hfh4giqsv0f0md3hr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMY52qlMNoTYxhhREMsT8xkpe2haOacCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "356823060418-ussulu18b2tg9n5hfh4giqsv0f0md3hr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "356823060418-5nhosgt4lnjk968na5pt1e4a6th06571.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fixDatesApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

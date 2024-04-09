@@ -18,7 +18,7 @@ class GoogleButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-         padding: const EdgeInsets.all(20),
+         padding: const EdgeInsets.all(17),
           margin: const EdgeInsets.symmetric(horizontal: 25),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
@@ -39,7 +39,7 @@ class GoogleButton extends StatelessWidget {
             style: TextStyle(
                 color: Colors.grey[700],
                 fontWeight: FontWeight.w500,
-                fontSize: 16,
+                fontSize: 20,
               ),
             ),
             ),
