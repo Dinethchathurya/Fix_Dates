@@ -51,7 +51,9 @@ class MyApp extends StatelessWidget {
         '/Settings': (context) => Settings(),
         '/EditProfile': (context) => EditProfile(),
         '/BlockedUsers': (context) => BlockedUsers(),
-        '/DeleteAccount': (context) => DeleteAccount(),
+        '/DeleteAccount': (context) => DeleteAccount(
+              onDelete: () {},
+            ),
         '/PrivacyPolicy': (context) => PrivacyPolicy(),
         '/TermsAndCondition': (context) => TermsAndCondition(),
         '/LogOut': (context) => LogOut(),
