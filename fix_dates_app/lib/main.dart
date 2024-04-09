@@ -35,9 +35,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
 
-      home: UserPoll(),
+      //home: LogInYourAccount(),
+      initialRoute: '/PrivacyPolicy',
 
       routes: {
         //basic routes
