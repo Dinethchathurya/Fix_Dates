@@ -1,16 +1,19 @@
 // ignore_for_file: prefer_const_constructors
 
+
 //import 'dart:html';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
 import 'package:fix_dates_app/components/create&login/checkbox.dart';
 import 'package:fix_dates_app/components/create&login/google_button.dart';
 import 'package:fix_dates_app/components/create&login/my_button.dart';
 import 'package:fix_dates_app/components/create&login/my_textfield.dart';
 import 'package:fix_dates_app/components/create&login/passfield.dart';
+
 class LogInYourAccount extends StatefulWidget {
   final Function()? onTap;
    LogInYourAccount({super.key, required this.onTap});
@@ -71,9 +74,11 @@ class _LogInYourAccountState extends State<LogInYourAccount> {
   }
 
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: SafeArea(
        child:  Center(
          child: SingleChildScrollView(
@@ -243,5 +248,6 @@ class _LogInYourAccountState extends State<LogInYourAccount> {
        ),
       )
     );
+
   }
 }
