@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -7,15 +9,14 @@ class GetUsersGroups {
   var user = "buthsara@gmail.com";
   List<dynamic> groups = [];
 
-  getGroups() async {
-    final docRef = db.collection("tempUsersTable").doc(user);
-    await docRef.get().then(
-      (DocumentSnapshot doc) {
-        groups.addAll(doc['groups']);
-      },
-      onError: (e) => print("Error getting document: $e"),
-    );
+  StreamSubscription<DocumentSnapshot>? groupsSubscription;
 
-    print(groups);
+  void getGroups() {
+    final docRef = db.collection("tempUsersTable").doc(user);
+    groupsSubscription = docRef.snapshots().listen((DocumentSnapshot doc) {
+      groups.clear(); // Clear the existing groups list
+      groups.addAll(doc['groups']); // Add all groups from the document
+      print(groups);
+    }, onError: (e) => print("Error getting document: $e"));
   }
 }

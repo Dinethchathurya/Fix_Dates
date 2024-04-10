@@ -1,7 +1,6 @@
 //import 'package:fix_dates_app/Screens/Auth/auth_page.dart';
 //flutter
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fix_dates_app/database/getGroups.dart';
 import 'package:flutter/material.dart';
 
 //import Basic Screens
@@ -19,6 +18,7 @@ import 'Screens/Settings/LogOut.dart';
 import 'Screens/Settings/PrivacyPolicy.dart';
 import 'Screens/Settings/Settings.dart';
 import 'Screens/Settings/TermsAndCondition.dart';
+import 'database/getGroups.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -74,6 +74,9 @@ class Database extends StatelessWidget {
     return Center(
       child: TextButton(
         onPressed: () {
+          // GetEvents getEvents = GetEvents();
+          // getEvents.getEvents();
+
           GetUsersGroups getUsersGroups = GetUsersGroups();
           getUsersGroups.getGroups();
 
