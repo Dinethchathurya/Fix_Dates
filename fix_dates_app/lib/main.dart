@@ -1,5 +1,7 @@
 //import 'package:fix_dates_app/Screens/Auth/auth_page.dart';
-import 'package:fix_dates_app/polls&createpolls/userpoll.dart';
+//flutter
+import 'package:firebase_core/firebase_core.dart';
+import 'package:fix_dates_app/database/GetUserDetails.dart';
 import 'package:flutter/material.dart';
 
 //import Basic Screens
@@ -17,8 +19,6 @@ import 'Screens/Settings/LogOut.dart';
 import 'Screens/Settings/PrivacyPolicy.dart';
 import 'Screens/Settings/Settings.dart';
 import 'Screens/Settings/TermsAndCondition.dart';
-//flutter
-import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -35,9 +35,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
       //home: LogInYourAccount(),
-      initialRoute: '/PrivacyPolicy',
+      initialRoute: '/testuserdetails',
 
       routes: {
         //basic routes
@@ -45,8 +44,12 @@ class MyApp extends StatelessWidget {
         '/CreateGroup': (context) => CreateGroup(),
         '/CreateAnEvent': (context) => CreateAnEvent(),
         //login and registrations routes
-        '/LogInYourAccount': (context) => LogInYourAccount(onTap: () {  },),
-        '/CreateAnAccount': (context) => CreateAnAccount(onTap: () {  },),
+        '/LogInYourAccount': (context) => LogInYourAccount(
+              onTap: () {},
+            ),
+        '/CreateAnAccount': (context) => CreateAnAccount(
+              onTap: () {},
+            ),
         //settings and settings features routes
         '/Settings': (context) => Settings(),
         '/EditProfile': (context) => EditProfile(),
@@ -57,7 +60,28 @@ class MyApp extends StatelessWidget {
         '/PrivacyPolicy': (context) => PrivacyPolicy(),
         '/TermsAndCondition': (context) => TermsAndCondition(),
         '/LogOut': (context) => LogOut(),
+        '/testuserdetails': (context) => TestUser(),
       },
+    );
+  }
+}
+
+class TestUser extends StatelessWidget {
+  const TestUser({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: TextButton(
+          onPressed: () {
+            GetUserData getUserData = GetUserData();
+            getUserData.getUserData();
+            //
+          },
+          child: Text('click'),
+        ),
+      ),
     );
   }
 }
