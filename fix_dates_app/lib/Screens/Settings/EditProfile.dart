@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:logger/logger.dart';
+
+final Logger _logger = Logger();
 
 class EditProfile extends StatefulWidget {
-  XFile? _imageFile;
-  final ImagePicker picker = ImagePicker();
-
   EditProfile({Key? key}) : super(key: key);
 
   @override
@@ -13,14 +16,74 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
-  TextEditingController nameController =
-      TextEditingController(text: 'John Doe');
-  TextEditingController emailController =
-      TextEditingController(text: 'johndoe@example.com');
-  TextEditingController phoneController =
-      TextEditingController(text: '123-456-7890');
-  TextEditingController positionController =
-      TextEditingController(text: 'Software Engineer');
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  XFile? _imageFile;
+  final ImagePicker _picker = ImagePicker();
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController positionController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData();
+  }
+
+  Future<void> fetchUserData() async {
+    try {
+      DocumentSnapshot userData =
+          await _firestore.collection('users').doc('user_id_01').get();
+      _logger.i('User Data: ${userData.data()}'); // Logging retrieved data
+      if (userData.exists) {
+        setState(() {
+          nameController.text = userData['name'] ?? '';
+          emailController.text = userData['email'] ?? '';
+          phoneController.text = userData['phone'] ?? '';
+          positionController.text = userData['position'] ?? '';
+        });
+      } else {
+        _logger.w('User data does not exist for user_id_01');
+      }
+    } catch (e) {
+      _logger.e('Error fetching profile: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content:
+              Text('Failed to fetch profile data. Please try again later.'),
+        ));
+      }
+    }
+  }
+
+  void saveProfile() async {
+    try {
+      User? user = _auth.currentUser;
+      if (user != null) {
+        await _firestore.collection('users').doc(user.uid).update({
+          'name': nameController.text.trim(),
+          'email': emailController.text.trim(),
+          'phone': phoneController.text.trim(),
+          'position': positionController.text.trim(),
+        });
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Profile saved successfully'),
+          ));
+        }
+      }
+    } catch (e) {
+      _logger.e('Error saving profile: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Failed to save profile. Please try again later.'),
+        ));
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +111,7 @@ class _EditProfileState extends State<EditProfile> {
                 UpdateProfileButton(
                   buttonName: 'Save',
                   onPressed: () {
-                    // Add functionality to save profile here
+                    saveProfile();
                   },
                 ),
                 ElevatedButton(
@@ -75,11 +138,10 @@ class _EditProfileState extends State<EditProfile> {
         children: <Widget>[
           CircleAvatar(
             radius: 80.0,
-            backgroundImage: widget._imageFile == null
+            backgroundImage: _imageFile == null
                 ? const NetworkImage(
-                        'https://e0.pxfuel.com/wallpapers/932/376/desktop-wallpaper-stylish-boys-cool-d-profile-pics-for-facebook-whatsapp-pretty-boys.jpg')
-                    as ImageProvider
-                : FileImage(File(widget._imageFile!.path)) as ImageProvider,
+                    'https://e0.pxfuel.com/wallpapers/932/376/desktop-wallpaper-stylish-boys-cool-d-profile-pics-for-facebook-whatsapp-pretty-boys.jpg')
+                : FileImage(File(_imageFile!.path)) as ImageProvider,
           ),
           Positioned(
             bottom: 20.0,
@@ -146,11 +208,11 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   void takePhoto(ImageSource source) async {
-    final pickedFile = await widget.picker.pickImage(
+    final pickedFile = await _picker.pickImage(
       source: source,
     );
     setState(() {
-      widget._imageFile = pickedFile;
+      _imageFile = pickedFile;
     });
   }
 

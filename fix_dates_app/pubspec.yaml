@@ -40,7 +40,8 @@ dependencies:
 
   font_awesome_flutter: ^10.7.0
   image_picker: ^1.0.7
-
+  cloud_firestore: ^4.15.10
+  logger: ^1.0.0
 
 dev_dependencies:
   flutter_test:
