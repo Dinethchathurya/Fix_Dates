@@ -1,7 +1,7 @@
 //import 'package:fix_dates_app/Screens/Auth/auth_page.dart';
 //flutter
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fix_dates_app/database/CreateEvent.dart';
+import 'package:fix_dates_app/database/getGroups.dart';
 import 'package:flutter/material.dart';
 
 //import Basic Screens
@@ -74,8 +74,11 @@ class Database extends StatelessWidget {
     return Center(
       child: TextButton(
         onPressed: () {
-          CreateEvent createEvent = CreateEvent();
-          createEvent.createEvent();
+          GetUsersGroups getUsersGroups = GetUsersGroups();
+          getUsersGroups.getGroups();
+
+          // CreateEvent createEvent = CreateEvent();
+          // createEvent.createEvent();
 
           // CreateNewGroup createNewGroup = CreateNewGroup();
           // createNewGroup.createGroup();
