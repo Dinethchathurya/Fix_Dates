@@ -1,7 +1,6 @@
 //import 'package:fix_dates_app/Screens/Auth/auth_page.dart';
 //flutter
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fix_dates_app/database/GetUserDetails.dart';
 import 'package:flutter/material.dart';
 
 //import Basic Screens
@@ -19,6 +18,7 @@ import 'Screens/Settings/LogOut.dart';
 import 'Screens/Settings/PrivacyPolicy.dart';
 import 'Screens/Settings/Settings.dart';
 import 'Screens/Settings/TermsAndCondition.dart';
+import 'database/UpdateUserDetails.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -75,8 +75,11 @@ class TestUser extends StatelessWidget {
       body: Center(
         child: TextButton(
           onPressed: () {
-            GetUserData getUserData = GetUserData();
-            getUserData.getUserData();
+            // GetUserData getUserData = GetUserData();
+            // getUserData.getUserData();
+
+            UpdateUserDetails updateUserDetails = UpdateUserDetails();
+            updateUserDetails.update();
             //
           },
           child: Text('click'),
