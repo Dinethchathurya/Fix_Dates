@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import, prefer_const_constructors
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fix_dates_app/database/create_user.dart';
 import 'package:flutter/material.dart';
 // ignore: unnecessary_import
 import 'package:flutter/widgets.dart';
@@ -22,6 +23,9 @@ class CreateAnAccount extends StatefulWidget {
 }
 
 class _CreateAnAccountState extends State<CreateAnAccount> {
+
+  final CreateUser create = CreateUser();
+
    final usernameController = TextEditingController();
 
   final emailController = TextEditingController();
@@ -47,20 +51,29 @@ class _CreateAnAccountState extends State<CreateAnAccount> {
       email: emailController.text,
       password: passwordController.text,
       );
-     // Navigator.pop(context);
+
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if(user != null) {
+         // Accessing the user ID
+      String uid = user.uid;
+
+      // Add user details to Firestore with the same ID as authenticated user
+      await create.addUser(uid, usernameController.text, emailController.text);
+      }
+
        } else {
         //error
         showErrorMessage("Passwords don't match");
        }
-      //loading off
+    
    } on FirebaseAuthException catch (e) {
-//loading off
-    //Navigator.pop(context);
-    //error
+
     showErrorMessage(e.code);
    }  
+   
   }
-  
+
 
    //popup for wrong credentials
   void showErrorMessage(String message) {

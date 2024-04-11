@@ -1,6 +1,7 @@
 //import 'package:fix_dates_app/Screens/Auth/auth_page.dart';
 //flutter
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fix_dates_app/Screens/Auth/auth_page.dart';
 import 'package:flutter/material.dart';
 
 //import Basic Screens
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       //home: LogInYourAccount(),
-      initialRoute: '/test',
+      initialRoute: '/AuthPage',
 
       routes: {
         //basic routes
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         '/CreateGroup': (context) => CreateGroup(),
         '/CreateAnEvent': (context) => CreateAnEvent(),
         //login and registrations routes
+        '/AuthPage' : (context) => AuthPage(),
         '/LogInYourAccount': (context) => LogInYourAccount(
               onTap: () {},
             ),
