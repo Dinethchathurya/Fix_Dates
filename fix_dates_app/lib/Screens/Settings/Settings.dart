@@ -285,6 +285,9 @@ Widget _buildHelpAndSupportButton() {
         // Navigate to the help and support screen
         // You can use Navigator to push a new screen for help and support
       },
+      style: ElevatedButton.styleFrom(
+      backgroundColor: Color.fromARGB(255, 3, 244, 224),
+      ),// Background color of the button
       child: Text('Visit Help & Support'),
     );
   }
