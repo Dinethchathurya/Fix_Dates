@@ -5,12 +5,10 @@ class CreateNewGroup {
   var db = FirebaseFirestore.instance;
   var auth = FirebaseAuth.instance;
 
-  createGroup() {
-    String groupName = "MAD";
-    List members = ['dineth@gmail.com', 'buthsara@gmail.com'];
-
+  // Method to create a new group
+  void createGroup(String groupName, List<String> members) {
     final groupDetails = <String, dynamic>{
-      "created by": "dineth@gmail.com",
+      "created by": auth.currentUser!.email,
       "members": members,
     };
 
@@ -18,16 +16,21 @@ class CreateNewGroup {
         .collection("group")
         .doc(groupName)
         .set(groupDetails)
-        .onError((e, _) => print("Error writing document: $e"));
+        .then((_) {
+          print("Group created successfully.");
+        })
+        .catchError((error) {
+          print("Error creating group: $error");
+        });
 
     for (var member in members) {
-      DocumentReference memberRef = db.collection("tempUsersTable").doc(member);
+      DocumentReference memberRef = db.collection("users").doc(member);
       memberRef.update({
         "groups": FieldValue.arrayUnion([groupName])
       }).then((_) {
-        print("Group added successfully for ");
+        print("Group added successfully for $member");
       }).catchError((error) {
-        print("Error adding group: $error");
+        print("Error adding group for $member: $error");
       });
     }
   }

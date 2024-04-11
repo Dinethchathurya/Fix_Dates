@@ -9,14 +9,27 @@ class GetUsersGroups {
   var user = "buthsara@gmail.com";
   List<dynamic> groups = [];
 
-  StreamSubscription<DocumentSnapshot>? groupsSubscription;
+//  StreamSubscription<DocumentSnapshot>? groupsSubscription;
 
-  void getGroups() {
+  Stream<List<dynamic>> getGroups() {
     final docRef = db.collection("tempUsersTable").doc(user);
-    groupsSubscription = docRef.snapshots().listen((DocumentSnapshot doc) {
-      groups.clear(); // Clear the existing groups list
-      groups.addAll(doc['groups']); // Add all groups from the document
-      print(groups);
-    }, onError: (e) => print("Error getting document: $e"));
+    return docRef.snapshots().map((doc) => List.from(doc['groups']));
   }
 }
+
+// class GetUsersGroups {
+//   var db = FirebaseFirestore.instance;
+//   var auth = FirebaseAuth.instance;
+//   var user = FirebaseAuth.instance.currentUser?.email; // Get current user's email
+//   List<dynamic> groups = [];
+
+//   Stream<List<dynamic>> getGroups() {
+//   if (user == null) {
+//     // Return an empty stream if user is not authenticated
+//     return Stream.empty();
+//   } else {
+//     final docRef = db.collection("users").doc(user);
+//     return docRef.snapshots().map((doc) => List.from(doc['groups'] ?? [])); // Provide a default empty list if 'groups' field doesn't exist
+//   }
+// }
+// }

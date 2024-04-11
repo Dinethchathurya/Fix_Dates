@@ -1,26 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:fix_dates_app/database/getGroups.dart';
-import 'package:fix_dates_app/Screens/BasicScreens/GetMyEvents.dart'; 
+import 'package:fix_dates_app/database/getEvents.dart';
+import 'dart:async'; // Import the dart:async library for StreamSubscription
 
-class Inbox extends StatefulWidget {
-  const Inbox({Key? key}) : super(key: key);
+
+class GetMyEvents extends StatefulWidget {
+  final String groupName;
+
+  const GetMyEvents({Key? key, required this.groupName}) : super(key: key);
 
   @override
-  State<Inbox> createState() => _InboxState();
+  _GetMyEventsState createState() => _GetMyEventsState();
 }
 
-class _InboxState extends State<Inbox> {
-  GetUsersGroups getUsersGroups = GetUsersGroups();
+class _GetMyEventsState extends State<GetMyEvents> {
+  GetEvents getEvents = GetEvents();
+  late StreamSubscription<List<Map<String, dynamic>>> eventsSubscription;
 
   @override
   void initState() {
     super.initState();
-    getUsersGroups.getGroups();
+    // Subscribe to the stream and listen for events
+    eventsSubscription = getEvents.getEvents(widget.groupName).listen((events) {
+      // Handle events here, you can set the events to state or perform any other action
+      setState(() {
+        // Set events to state if needed
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    // Cancel the subscription when the widget is disposed to avoid memory leaks
+    eventsSubscription.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Events'),
+      ),
       body: SafeArea(
         child: Container(
           margin: EdgeInsets.all(20.0),
@@ -30,38 +50,32 @@ class _InboxState extends State<Inbox> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
-                  'Groups',
+                  'Events for ${widget.groupName}',
                   style: TextStyle(
                     fontSize: 25.0,
                   ),
                 ),
               ),
               Expanded(
-                child: StreamBuilder<List<dynamic>>(
-                  stream: getUsersGroups.getGroups(), 
+                child: StreamBuilder<List<Map<String, dynamic>>>(
+                  stream: getEvents.getEvents(widget.groupName),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
                       return Center(child: Text('Error: ${snapshot.error}'));
                     } else {
-                      List<dynamic>? groups = snapshot.data;
-                      if (groups == null || groups.isEmpty) {
-                        return Center(child: Text('No groups found.'));
+                      List<Map<String, dynamic>>? events = snapshot.data;
+                      if (events == null || events.isEmpty) {
+                        return Center(child: Text('No events found for ${widget.groupName}.'));
                       } else {
                         return ListView.builder(
-                          itemCount: groups.length,
+                          itemCount: events.length,
                           itemBuilder: (context, index) {
                             return ListTile(
-                              title: Text(groups[index]),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => GetMyEvents(groupName: groups[index]),
-                                  ),
-                                );
-                              },
+                              title: Text(events[index]['eventName']),
+                              subtitle: Text(events[index]['eventDescription']),
+                              // Add more event details if needed
                             );
                           },
                         );
@@ -76,7 +90,7 @@ class _InboxState extends State<Inbox> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/CreateGroup');
+          Navigator.pushNamed(context, '/CreateAnEvent');
         },
         shape: CircleBorder(),
         backgroundColor: Colors.black,
