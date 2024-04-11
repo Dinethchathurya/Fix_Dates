@@ -10,7 +10,9 @@ class Settings extends StatelessWidget {
         appBar: AppBar(
         title: Text('Settings'),
     ),
-    body: Padding(
+
+    body: SingleChildScrollView(
+    child: Padding(
     padding: const EdgeInsets.all(16.0),
     child: Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,7 +66,42 @@ class Settings extends StatelessWidget {
     ),
       SizedBox(height: 8),
       _buildTimezoneDropdown(),
+
+      SizedBox(height: 24),
+Text(
+  'Language Preferences',
+  style: TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 18,
+  ),
+),
+SizedBox(height: 8),
+_buildLanguageDropdown(),
+
+SizedBox(height: 24),
+_buildNotificationSettings(),
+ SizedBox(height: 24),
+            Text(
+              'Backup and Restore',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+            SizedBox(height: 8),
+            _buildBackupRestoreButtons(),
+             SizedBox(height: 24),
+            Text(
+              'Privacy Settings',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+            SizedBox(height: 8),
+            _buildPrivacySettings(),
     ],
+    ),
     ),
     ),
     );
@@ -137,6 +174,93 @@ class Settings extends StatelessWidget {
       ),
     );
   }
+  Widget _buildLanguageDropdown() {
+  // Replace the list of languages with your own options
+  List<String> languages = ['English', 'Sinhala'];
+
+  return DropdownButtonFormField<String>(
+    items: languages.map((String language) {
+      return DropdownMenuItem<String>(
+        value: language,
+        child: Text(language),
+      );
+    }).toList(),
+    onChanged: (String? value) {
+      // Handle language change
+      // You can implement logic here to change the language of the app
+    },
+    decoration: InputDecoration(
+      border: OutlineInputBorder(),
+      hintText: 'Select Language',
+    ),
+  );
+}
+Widget _buildNotificationSettings() {
+  bool notificationsEnabled = false; // Initialize with default value
+
+  return Row(
+    children: [
+      Text(
+        'Notification Settings',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 18,
+        ),
+      ),
+      SizedBox(width: 8),
+      Switch(
+        value: notificationsEnabled,
+        onChanged: (value) {
+          // Handle notification toggle
+          notificationsEnabled = value;
+        },
+      ),
+    ],
+  );
+}
+ Widget _buildBackupRestoreButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        ElevatedButton(
+          onPressed: () {
+            // Handle backup logic
+          },
+          child: Text('Backup'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            // Handle restore logic
+          },
+          child: Text('Restore'),
+        ),
+      ],
+    );
+  }
+ Widget _buildPrivacySettings() {
+    bool anonymousDataCollection = false; // Initialize with default value
+
+    return Row(
+      children: [
+        Text(
+          'Anonymous Data Collection',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+        SizedBox(width: 8),
+        Switch(
+          value: anonymousDataCollection,
+          onChanged: (value) {
+            // Handle anonymous data collection toggle
+            anonymousDataCollection = value;
+          },
+        ),
+      ],
+    );
+  }
+
 }
 
 
