@@ -53,6 +53,7 @@ class Settings extends StatelessWidget {
               // Handle synchronization toggle
               isSyncEnabled = value;
             },
+            activeColor: Colors.blue, // Set the active color to blue
           ),
         ],
       ),
@@ -100,6 +101,16 @@ _buildNotificationSettings(),
             ),
             SizedBox(height: 8),
             _buildPrivacySettings(),
+    SizedBox(height: 24),
+              Text(
+                'Help & Support Center',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              SizedBox(height: 8),
+              _buildHelpAndSupportButton(),
     ],
     ),
     ),
@@ -214,6 +225,7 @@ Widget _buildNotificationSettings() {
           // Handle notification toggle
           notificationsEnabled = value;
         },
+        activeColor: Colors.blue, // Set the active color to blue
       ),
     ],
   );
@@ -226,12 +238,18 @@ Widget _buildNotificationSettings() {
           onPressed: () {
             // Handle backup logic
           },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color.fromARGB(255, 3, 244, 224), // Light blue color for backup button
+          ),
           child: Text('Backup'),
         ),
         ElevatedButton(
           onPressed: () {
             // Handle restore logic
           },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color.fromARGB(255, 3, 244, 224), // Light blue color for backup button
+          ),
           child: Text('Restore'),
         ),
       ],
@@ -256,11 +274,20 @@ Widget _buildNotificationSettings() {
             // Handle anonymous data collection toggle
             anonymousDataCollection = value;
           },
+          activeColor: Colors.blue, // Set the active color to blue
         ),
       ],
     );
   }
-
+Widget _buildHelpAndSupportButton() {
+    return ElevatedButton(
+      onPressed: () {
+        // Navigate to the help and support screen
+        // You can use Navigator to push a new screen for help and support
+      },
+      child: Text('Visit Help & Support'),
+    );
+  }
 }
 
 
