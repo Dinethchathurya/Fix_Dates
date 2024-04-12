@@ -15,7 +15,7 @@ class GetMyEvents extends StatefulWidget {
 class _GetMyEventsState extends State<GetMyEvents> {
   GetEvents getEvents = GetEvents();
   late StreamSubscription<List<Map<String, dynamic>>> eventsSubscription;
-
+  late Stream<List<Map<String, dynamic>>> bbStream;
   @override
   void initState() {
     super.initState();
@@ -30,8 +30,8 @@ class _GetMyEventsState extends State<GetMyEvents> {
     // );
     var groupName = widget.groupName;
     GetEvents getEvents = GetEvents();
-    var bb = getEvents.getEvents(groupName);
-    print(bb);
+    bbStream = getEvents.getEvents(groupName);
+    print('data : $bbStream');
   }
 
   @override
@@ -44,71 +44,97 @@ class _GetMyEventsState extends State<GetMyEvents> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Events'),
-      ),
-      body: SafeArea(
-        child: Container(
-          margin: EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.0),
-                child: Text(
-                  'Events for ${widget.groupName}',
-                  style: TextStyle(
-                    fontSize: 25.0,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: StreamBuilder<List<Map<String, dynamic>>>(
-                  stream: getEvents.getEvents(widget.groupName),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
-                    } else if (snapshot.hasError) {
-                      return Center(child: Text('Error: ${snapshot.error}'));
-                    } else {
-                      List<Map<String, dynamic>>? events = snapshot.data;
-                      if (events == null || events.isEmpty) {
-                        return Center(
-                            child: Text(
-                                'No events found for ${widget.groupName}.'));
-                      } else {
-                        return ListView.builder(
-                          itemCount: events.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Text(events[index]['eventName']),
-                              subtitle: Text(events[index]['eventDescription']),
-                              // Add more event details if needed
-                            );
-                          },
-                        );
-                      }
-                    }
-                  },
-                ),
-              ),
-            ],
-          ),
+      body: Center(
+        child: StreamBuilder<List<Map<String, dynamic>>>(
+          stream: bbStream, // Pass the stream to stream parameter
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              var data = snapshot.data;
+              return ListView.builder(
+                itemCount: data!.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(data[index]['title']),
+                    // Other widget properties based on your data
+                  );
+                },
+              );
+            }
+          },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/CreateAnEvent');
-        },
-        shape: CircleBorder(),
-        backgroundColor: Colors.black,
-        child: Icon(
-          Icons.add,
-          size: 40.0,
-          color: Colors.white,
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
+
+    //   Scaffold(
+    //   appBar: AppBar(
+    //     title: Text('Events'),
+    //   ),
+    //   body: SafeArea(
+    //     child: Container(
+    //       margin: EdgeInsets.all(20.0),
+    //       child: Column(
+    //         crossAxisAlignment: CrossAxisAlignment.start,
+    //         children: [
+    //           Padding(
+    //             padding: EdgeInsets.symmetric(vertical: 10.0),
+    //             child: Text(
+    //               'Events for ${widget.groupName}',
+    //               style: TextStyle(
+    //                 fontSize: 25.0,
+    //               ),
+    //             ),
+    //           ),
+    //           Expanded(
+    //             child: StreamBuilder<List<Map<String, dynamic>>>(
+    //               stream: getEvents.getEvents(widget.groupName),
+    //               builder: (context, snapshot) {
+    //                 if (snapshot.connectionState == ConnectionState.waiting) {
+    //                   return Center(child: CircularProgressIndicator());
+    //                 } else if (snapshot.hasError) {
+    //                   return Center(child: Text('Error: ${snapshot.error}'));
+    //                 } else {
+    //                   List<Map<String, dynamic>>? events = snapshot.data;
+    //                   if (events == null || events.isEmpty) {
+    //                     return Center(
+    //                         child: Text(
+    //                             'No events found for ${widget.groupName}.'));
+    //                   } else {
+    //                     return ListView.builder(
+    //                       itemCount: events.length,
+    //                       itemBuilder: (context, index) {
+    //                         return ListTile(
+    //                           title: Text(events[index]['eventName']),
+    //                           subtitle: Text(events[index]['eventDescription']),
+    //                           // Add more event details if needed
+    //                         );
+    //                       },
+    //                     );
+    //                   }
+    //                 }
+    //               },
+    //             ),
+    //           ),
+    //         ],
+    //       ),
+    //     ),
+    //   ),
+    //   floatingActionButton: FloatingActionButton(
+    //     onPressed: () {
+    //       Navigator.pushNamed(context, '/CreateAnEvent');
+    //     },
+    //     shape: CircleBorder(),
+    //     backgroundColor: Colors.black,
+    //     child: Icon(
+    //       Icons.add,
+    //       size: 40.0,
+    //       color: Colors.white,
+    //     ),
+    //   ),
+    //   floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+    // );
   }
 }
