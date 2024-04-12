@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:fix_dates_app/database/getEvents.dart';
 import 'dart:async'; // Import the dart:async library for StreamSubscription
 
+import 'package:fix_dates_app/database/getEvents.dart';
+import 'package:flutter/material.dart';
 
 class GetMyEvents extends StatefulWidget {
-  final String groupName;
+  late String groupName;
 
-  const GetMyEvents({Key? key, required this.groupName}) : super(key: key);
+  GetMyEvents({Key? key, required this.groupName}) : super(key: key);
 
   @override
   _GetMyEventsState createState() => _GetMyEventsState();
@@ -20,12 +20,18 @@ class _GetMyEventsState extends State<GetMyEvents> {
   void initState() {
     super.initState();
     // Subscribe to the stream and listen for events
-    eventsSubscription = getEvents.getEvents(widget.groupName).listen((events) {
-      // Handle events here, you can set the events to state or perform any other action
-      setState(() {
-        // Set events to state if needed
-      });
-    });
+
+    // eventsSubscription = getEvents.getEvents(widget.groupName).listen((events) {
+    //   // Handle events here, you can set the events to state or perform any other action
+    //   setState(() {
+    //     // Set events to state if needed
+    //   });
+    // },
+    // );
+    var groupName = widget.groupName;
+    GetEvents getEvents = GetEvents();
+    var bb = getEvents.getEvents(groupName);
+    print(bb);
   }
 
   @override
@@ -67,7 +73,9 @@ class _GetMyEventsState extends State<GetMyEvents> {
                     } else {
                       List<Map<String, dynamic>>? events = snapshot.data;
                       if (events == null || events.isEmpty) {
-                        return Center(child: Text('No events found for ${widget.groupName}.'));
+                        return Center(
+                            child: Text(
+                                'No events found for ${widget.groupName}.'));
                       } else {
                         return ListView.builder(
                           itemCount: events.length,
