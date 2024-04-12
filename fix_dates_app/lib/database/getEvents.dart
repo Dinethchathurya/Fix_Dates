@@ -64,17 +64,33 @@ class GetEvents {
         .collection("events")
         .snapshots()
         .map((querySnapshot) {
-      // Clear the events list before updating it
-      events.clear();
-
-      // Loop through each document and retrieve its data
-      querySnapshot.docs.forEach((doc) {
-        // Add document data to the events list
-        events.add(doc.data() as Map<String, dynamic>);
-      });
-
-      // Return the events list
-      return events;
+      // Map each document to a map containing document ID and data
+      return querySnapshot.docs.map((doc) {
+        var eventData = doc.data() as Map<String, dynamic>;
+        eventData['id'] = doc.id; // Add document ID to the map
+        return eventData;
+      }).toList();
     });
   }
+
+// Stream<List<Map<String, dynamic>>> getEvents(String groupName) {
+  //   return db
+  //       .collection("group")
+  //       .doc(groupName)
+  //       .collection("events")
+  //       .snapshots()
+  //       .map((querySnapshot) {
+  //     // Clear the events list before updating it
+  //     events.clear();
+  //
+  //     // Loop through each document and retrieve its data
+  //     querySnapshot.docs.forEach((doc) {
+  //       // Add document data to the events list
+  //       events.add(doc.data() as Map<String, dynamic>);
+  //     });
+  //
+  //     // Return the events list
+  //     return events;
+  //   });
+  // }
 }

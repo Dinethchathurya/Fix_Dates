@@ -57,8 +57,10 @@ class _GetMyEventsState extends State<GetMyEvents> {
               return ListView.builder(
                 itemCount: data!.length,
                 itemBuilder: (context, index) {
+                  var documentId = data[index][
+                      'id']; // Assuming 'id' is the key for document ID in your map
                   return ListTile(
-                    title: Text(data[index]['title']),
+                    title: Text('Document ID: $documentId'),
                     // Other widget properties based on your data
                   );
                 },
@@ -138,3 +140,17 @@ class _GetMyEventsState extends State<GetMyEvents> {
     // );
   }
 }
+
+//Text(data[index]['title']
+
+// ListView.builder(
+// itemCount: data!.length,
+// itemBuilder: (context, index) {
+// return ListTile(
+// title: Text(data[index]),
+// // Other widget properties based on your data
+// );
+// },
+// );
+
+// data[index]['id'];

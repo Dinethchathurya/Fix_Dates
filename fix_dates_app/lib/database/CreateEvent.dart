@@ -13,6 +13,9 @@ class CreateEvent {
     List firstOption = ["dineth@gmail.com", "dineth@gmail.com"];
     List secondOption = ["dineth@gmail.com", "dineth@gmail.com"];
     List thirdOption = ["dineth@gmail.com", "dineth@gmail.com"];
+    String date1 = '';
+    String date2 = '';
+    String date3 = '';
 
     final eventDetails = <String, dynamic>{
       "title": title,
@@ -20,9 +23,9 @@ class CreateEvent {
       "created_user_id": createdUserid,
       "created_datetime": createdDatetime,
       "cloused_datetime": closedDatetime,
-      "1date_time": firstOption,
-      "2date_time": secondOption,
-      "3date_time": thirdOption,
+      date1: firstOption,
+      date2: secondOption,
+      date3: thirdOption,
     };
 
     db
