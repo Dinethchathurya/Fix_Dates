@@ -19,7 +19,6 @@ import 'Screens/Settings/LogOut.dart';
 import 'Screens/Settings/PrivacyPolicy.dart';
 import 'Screens/Settings/Settings.dart';
 import 'Screens/Settings/TermsAndCondition.dart';
-import 'database/getGroups.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -45,7 +44,7 @@ class MyApp extends StatelessWidget {
         '/CreateGroup': (context) => CreateGroup(),
         '/CreateAnEvent': (context) => CreateAnEvent(),
         //login and registrations routes
-        '/AuthPage' : (context) => AuthPage(),
+        '/AuthPage': (context) => AuthPage(),
         '/LogInYourAccount': (context) => LogInYourAccount(
               onTap: () {},
             ),
@@ -76,11 +75,14 @@ class Database extends StatelessWidget {
     return Center(
       child: TextButton(
         onPressed: () {
+          // GetUsers getUsers = GetUsers();
+          // getUsers.getInfoStream();
+
           // GetEvents getEvents = GetEvents();
           // getEvents.getEvents();
 
-          GetUsersGroups getUsersGroups = GetUsersGroups();
-          getUsersGroups.getGroups();
+          // GetUsersGroups getUsersGroups = GetUsersGroups();
+          // getUsersGroups.getGroups();
 
           // CreateEvent createEvent = CreateEvent();
           // createEvent.createEvent();

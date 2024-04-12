@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:fix_dates_app/components/Index/searchBar.dart';
-import 'package:fix_dates_app/database/getUsers.dart';
-import 'package:fix_dates_app/database/create_new_group.dart'; // Import the backend code
 import 'package:fix_dates_app/Screens/BasicScreens/Inbox.dart'; // Import the Inbox page
+import 'package:fix_dates_app/components/Index/searchBar.dart';
+import 'package:fix_dates_app/database/create_new_group.dart'; // Import the backend code
+import 'package:fix_dates_app/database/getUsers.dart';
+import 'package:flutter/material.dart';
 
 class CreateGroup extends StatefulWidget {
   const CreateGroup({Key? key}) : super(key: key);
@@ -32,7 +32,9 @@ class _CreateGroupState extends State<CreateGroup> {
           ),
           onPressed: () {
             // Call method to create group
-            createGroup();
+            CreateNewGroup createNewGroup = CreateNewGroup();
+            createNewGroup.createGroup(groupName, selectedUsers);
+            // createGroup();
           },
           child: Text(
             'Create',
@@ -69,8 +71,7 @@ class _CreateGroupState extends State<CreateGroup> {
                   child: StreamBuilder(
                     stream: getusers.getInfoStream(),
                     builder: (context, AsyncSnapshot snapshot) {
-                      if (snapshot.connectionState ==
-                          ConnectionState.waiting) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
                         return Center(
                           child: CircularProgressIndicator(),
                         );
@@ -86,13 +87,13 @@ class _CreateGroupState extends State<CreateGroup> {
                             // Checkbox for selecting users
                             return CheckboxListTile(
                               title: Text(document['email']),
-                              value: selectedUsers.contains(document['email']),
+                              value: selectedUsers.contains(document['Uid']),
                               onChanged: (bool? value) {
                                 setState(() {
                                   if (value!) {
-                                    selectedUsers.add(document['email']);
+                                    selectedUsers.add(document['Uid']);
                                   } else {
-                                    selectedUsers.remove(document['email']);
+                                    selectedUsers.remove(document['Uid']);
                                   }
                                 });
                               },
