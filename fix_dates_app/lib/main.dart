@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
         //basic routes
         '/': (context) => Inbox(),
         '/CreateGroup': (context) => CreateGroup(),
-        '/CreateAnEvent': (context) => CreateAnEvent(),
+      //  '/CreateAnEvent': (context) => CreateAnEvent(),
         //login and registrations routes
         '/AuthPage': (context) => AuthPage(),
         '/LogInYourAccount': (context) => LogInYourAccount(

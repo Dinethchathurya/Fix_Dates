@@ -32,9 +32,9 @@ class _CreateGroupState extends State<CreateGroup> {
           ),
           onPressed: () {
             // Call method to create group
-            CreateNewGroup createNewGroup = CreateNewGroup();
-            createNewGroup.createGroup(groupName, selectedUsers);
-            // createGroup();
+            //CreateNewGroup createNewGroup = CreateNewGroup();
+            //createNewGroup.createGroup(groupName, selectedUsers);
+             createGroup();
           },
           child: Text(
             'Create',

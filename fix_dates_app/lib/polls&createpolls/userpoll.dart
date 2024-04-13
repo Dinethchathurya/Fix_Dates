@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:fix_dates_app/polls&createpolls/createpoll.dart';
 
 class UserPoll extends StatefulWidget {
-  const UserPoll({Key? key}) : super(key: key);
+  final String eventId;
+  final String groupName;
+
+  const UserPoll({Key? key, required this.eventId, required this.groupName}) : super(key: key);
 
   @override
   State<UserPoll> createState() => _UserPollState();
