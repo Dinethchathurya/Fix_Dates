@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:fix_dates_app/database/CreateEvent.dart';
+import 'package:flutter/material.dart';
 
 class CreateAnEvent extends StatefulWidget {
   final String groupName;
-  final String createdUserid;
 
-  const CreateAnEvent({Key? key, required this.groupName, required this.createdUserid}) : super(key: key);
+  const CreateAnEvent({Key? key, required this.groupName}) : super(key: key);
 
   @override
   State<CreateAnEvent> createState() => _CreateAnEventState();
@@ -43,7 +42,8 @@ class _CreateAnEventState extends State<CreateAnEvent> {
                     textfWidget(titleController, label: "Title"),
                     textfWidget(descriptionController, label: "Description"),
                     for (int i = 0; i < optionControllers.length; i++)
-                      textfWidget(optionControllers[i], label: "Option ${i + 1}"),
+                      textfWidget(optionControllers[i],
+                          label: "Option ${i + 1}"),
                     // textfWidget(durationController, label: "Duration"),
                     ElevatedButton(
                       onPressed: () {
@@ -104,12 +104,13 @@ class _CreateAnEventState extends State<CreateAnEvent> {
     String title = titleController.text;
     String description = descriptionController.text;
     String groupName = widget.groupName;
-    String createdUserid = widget.createdUserid;
     DateTime createdDatetime = DateTime.now();
-    List<String> options = optionControllers.map((controller) => controller.text).toList();
+    List<String> options =
+        optionControllers.map((controller) => controller.text).toList();
 
     if (title.isNotEmpty && description.isNotEmpty) {
-      createEvent.createEvent(groupName, title, description, createdUserid, createdDatetime, options);
+      createEvent.createEvent(
+          groupName, title, description, createdDatetime, options);
       // Clear input fields after creating the event
       titleController.clear();
       descriptionController.clear();

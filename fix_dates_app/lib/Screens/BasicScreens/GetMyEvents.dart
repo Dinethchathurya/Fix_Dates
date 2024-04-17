@@ -158,11 +158,13 @@
 
 // // data[index]['id'];
 
-import 'dart:async'; // Import the dart:async library for StreamSubscription
+import 'dart:async';
 
 import 'package:fix_dates_app/Screens/BasicScreens/CreateAnEvent.dart';
 import 'package:fix_dates_app/database/getEvents.dart';
 import 'package:flutter/material.dart';
+
+import '../../database/vote.dart';
 
 class GetMyEvents extends StatefulWidget {
   final String groupName;
@@ -292,6 +294,13 @@ class _GetMyEventsState extends State<GetMyEvents> {
                                           return InkWell(
                                             onTap: () {
                                               _vote(optionIndex);
+                                              print(
+                                                  'option index $optionIndex');
+                                              Vote vote = Vote();
+                                              vote.updateUserVotes(
+                                                  widget.groupName,
+                                                  documentId,
+                                                  options[optionIndex]);
                                             },
                                             child: Container(
                                               margin: const EdgeInsets.only(
@@ -372,7 +381,6 @@ class _GetMyEventsState extends State<GetMyEvents> {
             MaterialPageRoute(
               builder: (context) => CreateAnEvent(
                 groupName: widget.groupName,
-                createdUserid: 'someDefaultValue',
               ),
             ),
           );

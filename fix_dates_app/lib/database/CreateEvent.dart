@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 // class CreateEvent {
 //   var db = FirebaseFirestore.instance;
@@ -39,12 +40,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CreateEvent {
   var db = FirebaseFirestore.instance;
+  var auth = FirebaseAuth.instance;
 
-  void createEvent(String groupName, String title, String description, String createdUserid, DateTime createdDatetime, List<String> options) {
+  void createEvent(String groupName, String title, String description,
+      DateTime createdDatetime, List<String> options) {
     final eventDetails = <String, dynamic>{
       "title": title,
       "description": description,
-      "created_user_id": createdUserid,
+      "created_user_id": auth.currentUser?.uid,
       "created_datetime": createdDatetime,
       "options": options,
     };
