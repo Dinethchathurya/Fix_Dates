@@ -202,14 +202,22 @@ class _GetMyEventsState extends State<GetMyEvents> {
   //final List<String> _options = ["Bee honey", "Nikan Honey"];
 
   void _vote(int optionIndex) {
-    if (!_hasVoted) {
-      setState(() {
-        _hasVoted = true;
-        _selectedOptionIndex = optionIndex;
-        _votes[optionIndex]++;
-      });
-    }
+  if (!_hasVoted) {
+    setState(() {
+      _hasVoted = true;
+      _selectedOptionIndex = optionIndex;
+      _votes[optionIndex]++;
+    });
+  } else {
+    // If the user has already voted, remove their previous vote
+    int previousVoteIndex = _selectedOptionIndex;
+    setState(() {
+      _votes[previousVoteIndex]--;
+      _votes[optionIndex]++;
+      _selectedOptionIndex = optionIndex;
+    });
   }
+}
 
   int _totalVotes() {
     return _votes.reduce((value, element) => value + element);

@@ -50,22 +50,40 @@ class _InboxState extends State<Inbox> {
                         return Center(child: Text('No groups found.'));
                       } else {
                         return ListView.builder(
-                          itemCount: groups.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Text(groups[index]),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        GetMyEvents(groupName: groups[index]),
+                        itemCount: groups.length,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                leading: Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Colors.black,
+                                      width: 2.0,
+                                    ),
                                   ),
-                                );
-                              },
-                            );
-                          },
-                        );
+                                  child: CircleAvatar(
+                                    backgroundImage: AssetImage('lib/images/group.png'),
+                                    radius: 30.0,
+                                  ),
+                                ),
+                                title: Text(groups[index]),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => GetMyEvents(groupName: groups[index]),
+                                    ),
+                                  );
+                                },
+                              ),
+                              SizedBox(height: 10.0), // Move it inside the Column
+                            ],
+                          );
+                        },
+                      );    
                       }
                     }
                   },
