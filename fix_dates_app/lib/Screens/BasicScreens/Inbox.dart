@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:fix_dates_app/Screens/BasicScreens/GetMyEvents.dart';
 import 'package:fix_dates_app/database/getGroups.dart';
-import 'package:fix_dates_app/Screens/BasicScreens/GetMyEvents.dart'; 
+import 'package:flutter/material.dart';
 
 class Inbox extends StatefulWidget {
   const Inbox({Key? key}) : super(key: key);
@@ -38,7 +38,7 @@ class _InboxState extends State<Inbox> {
               ),
               Expanded(
                 child: StreamBuilder<List<dynamic>>(
-                  stream: getUsersGroups.getGroups(), 
+                  stream: getUsersGroups.getGroups(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
@@ -58,7 +58,8 @@ class _InboxState extends State<Inbox> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => GetMyEvents(groupName: groups[index]),
+                                    builder: (context) =>
+                                        GetMyEvents(groupName: groups[index]),
                                   ),
                                 );
                               },
@@ -90,3 +91,4 @@ class _InboxState extends State<Inbox> {
     );
   }
 }
+//groups[index]
