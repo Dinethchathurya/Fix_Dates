@@ -3,9 +3,9 @@
 //import 'dart:js';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fix_dates_app/Screens/Auth/home_test.dart';
+//import 'package:fix_dates_app/Screens/Auth/home_test.dart';
 import 'package:fix_dates_app/Screens/Auth/toggle_login_register.dart';
-//import 'package:fix_dates_app/Screens/BasicScreens/Inbox.dart';
+import 'package:fix_dates_app/Screens/BasicScreens/Inbox.dart';
 import 'package:flutter/material.dart';
 
 class AuthPage extends StatelessWidget {
@@ -19,7 +19,7 @@ class AuthPage extends StatelessWidget {
         builder: (context,snapshot) {
           //logged in
           if(snapshot.hasData) {
-            return HomePage();
+            return Inbox();
           }
           else {
             return ToggleLoginRegister();

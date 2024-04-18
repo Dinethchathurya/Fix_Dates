@@ -21,6 +21,63 @@ class _InboxState extends State<Inbox> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text('Inbox')),
+      ),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            DrawerHeader(
+              child: Icon(
+                Icons.meeting_room,
+                size: 30,
+              ),
+              ),
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text("Home"),
+                onTap: () {
+                  Navigator.pushNamed(context, '/');
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.person),
+                title: Text("Profile"),
+                onTap: () {
+                  Navigator.pushNamed(context, '/EditProfile');
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.settings),
+                title: Text("Settings"),
+                onTap: () {
+                  Navigator.pushNamed(context, '/DeleteAccount');
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.privacy_tip),
+                title: Text("Privacy Policy"),
+                onTap: () {
+                  Navigator.pushNamed(context, '/PrivacyPolicy');
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.picture_as_pdf_rounded),
+                title: Text("Terms & Conditions"),
+                onTap: () {
+                  Navigator.pushNamed(context, '/TermsAndCondition');
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.logout),
+                title: Text("Logout"),
+                onTap: () {
+                  Navigator.pushNamed(context, '/Logout');
+                },
+              ),
+          ],
+        ),
+      ),
       body: SafeArea(
         child: Container(
           margin: EdgeInsets.all(20.0),

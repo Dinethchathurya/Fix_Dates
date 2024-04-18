@@ -2,6 +2,7 @@
 //flutter
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fix_dates_app/Screens/Auth/auth_page.dart';
+import 'package:fix_dates_app/Screens/Auth/logout.dart';
 import 'package:flutter/material.dart';
 
 //import Basic Screens
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
         '/LogInYourAccount': (context) => LogInYourAccount(
               onTap: () {},
             ),
+            '/Logout': (context) => Logout(),
         '/CreateAnAccount': (context) => CreateAnAccount(
               onTap: () {},
             ),
