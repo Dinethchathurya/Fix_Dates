@@ -159,12 +159,33 @@
 // // data[index]['id'];
 
 import 'dart:async';
-
 import 'package:fix_dates_app/Screens/BasicScreens/CreateAnEvent.dart';
 import 'package:fix_dates_app/database/getEvents.dart';
 import 'package:flutter/material.dart';
-
 import '../../database/vote.dart';
+
+class Event {
+  final String id;
+  final String title;
+  final String description;
+  final List<String> options;
+  bool hasVoted;
+  int selectedOptionIndex;
+  List<int> votes;
+
+  Event({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.options,
+    this.hasVoted = false,
+    this.selectedOptionIndex = -1,
+  }) : votes = List<int>.generate(options.length, (index) => 0);
+
+  int totalVotes() {
+    return votes.reduce((value, element) => value + element);
+  }
+}
 
 class GetMyEvents extends StatefulWidget {
   final String groupName;
@@ -178,49 +199,49 @@ class GetMyEvents extends StatefulWidget {
 class _GetMyEventsState extends State<GetMyEvents> {
   GetEvents getEvents = GetEvents();
   late StreamSubscription<List<Map<String, dynamic>>> eventsSubscription;
-  late Stream<List<Map<String, dynamic>>> bbStream;
+  List<Event> events = [];
 
   @override
   void initState() {
     super.initState();
     var groupName = widget.groupName;
-    GetEvents getEvents = GetEvents();
-    bbStream = getEvents.getEvents(groupName);
-    print('data : $bbStream');
+    eventsSubscription = getEvents.getEvents(groupName).listen((data) {
+      setState(() {
+        events = data.map((eventData) => Event(
+          id: eventData['id'],
+          title: eventData['title'],
+          description: eventData['description'],
+          options: List<String>.from(eventData['options']).toList(),
+        )).toList();
+      });
+    });
   }
 
   @override
   void dispose() {
-    // Cancel the subscription when the widget is disposed to avoid memory leaks
     eventsSubscription.cancel();
     super.dispose();
   }
 
-  bool _hasVoted = false;
-  int _selectedOptionIndex = -1;
-  List<int> _votes = [0, 0]; // Track votes for each option
-  //final List<String> _options = ["Bee honey", "Nikan Honey"];
-
-  void _vote(int optionIndex) {
-  if (!_hasVoted) {
-    setState(() {
-      _hasVoted = true;
-      _selectedOptionIndex = optionIndex;
-      _votes[optionIndex]++;
-    });
-  } else {
-    // If the user has already voted, remove their previous vote
-    int previousVoteIndex = _selectedOptionIndex;
-    setState(() {
-      _votes[previousVoteIndex]--;
-      _votes[optionIndex]++;
-      _selectedOptionIndex = optionIndex;
-    });
-  }
-}
-
-  int _totalVotes() {
-    return _votes.reduce((value, element) => value + element);
+  void _vote(Event event, int optionIndex) {
+    if (!event.hasVoted) {
+      setState(() {
+        event.hasVoted = true;
+        event.selectedOptionIndex = optionIndex;
+        event.votes[optionIndex]++;
+      });
+    } else {
+      int previousVoteIndex = event.selectedOptionIndex;
+      if (previousVoteIndex != optionIndex) {
+        setState(() {
+          event.votes[previousVoteIndex]--;
+          event.votes[optionIndex]++;
+          event.selectedOptionIndex = optionIndex;
+        });
+      }
+    }
+    Vote vote = Vote();
+    vote.updateUserVotes(widget.groupName, event.id, event.options[optionIndex]);
   }
 
   @override
@@ -245,136 +266,106 @@ class _GetMyEventsState extends State<GetMyEvents> {
                 ),
               ),
               Expanded(
-                child: StreamBuilder<List<Map<String, dynamic>>>(
-                  stream: bbStream, // Pass the stream to stream parameter
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return CircularProgressIndicator();
-                    } else if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    } else {
-                      var data = snapshot.data;
-                      return ListView.builder(
-                        itemCount: data!.length,
-                        itemBuilder: (context, index) {
-                          var documentId = data[index]['id'];
-                          var title = data[index]['title'];
-                          var description = data[index]['description'];
-                          var createdUserId = data[index]['created_user_id'];
-                          List options = data[index]['options'];
-
-                          // Assuming 'id' is the key for document ID in your map
-                          return Container(
-                            padding: const EdgeInsets.all(20),
+                child: ListView.builder(
+                  itemCount: events.length,
+                  itemBuilder: (context, index) {
+                    Event event = events[index];
+                    return Container(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 10),
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                ...List.generate(1, (index) {
-                                  return Container(
-                                    margin: const EdgeInsets.only(bottom: 10),
-                                    padding: const EdgeInsets.all(8),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.grey),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        ListTile(
-                                          contentPadding:
-                                              const EdgeInsets.all(0),
-                                          leading: CircleAvatar(),
-                                          title: Text('$title'),
-                                          trailing: _hasVoted
-                                              ? null
-                                              : IconButton(
-                                                  onPressed: () {},
-                                                  icon:
-                                                      const Icon(Icons.delete),
+                                ListTile(
+                                  contentPadding: const EdgeInsets.all(0),
+                                  leading: CircleAvatar(),
+                                  title: Text('${event.title}'),
+                                  trailing: event.hasVoted
+                                      ? null
+                                      : IconButton(
+                                          onPressed: () {
+                                            // Delete event
+                                          },
+                                          icon: const Icon(Icons.delete),
+                                        ),
+                                ),
+                                Text('${event.description}'),
+                                const SizedBox(height: 8),
+                                ...List.generate(event.options.length,
+                                    (optionIndex) {
+                                  return InkWell(
+                                    onTap: () {
+                                      _vote(event, optionIndex);
+                                    },
+                                    child: Container(
+                                      margin:
+                                          const EdgeInsets.only(bottom: 5),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Stack(
+                                              children: [
+                                                LinearProgressIndicator(
+                                                  minHeight: 30,
+                                                  value: event.hasVoted
+                                                      ? event.votes[
+                                                              optionIndex] /
+                                                          100.0
+                                                      : 0,
+                                                  backgroundColor:
+                                                      Colors.white,
                                                 ),
-                                        ),
-                                        Text('$description'),
-                                        const SizedBox(
-                                          height: 8,
-                                        ),
-                                        ...List.generate(options.length,
-                                            (optionIndex) {
-                                          return InkWell(
-                                            onTap: () {
-                                              _vote(optionIndex);
-                                              print(
-                                                  'option index $optionIndex');
-                                              Vote vote = Vote();
-                                              vote.updateUserVotes(
-                                                  widget.groupName,
-                                                  documentId,
-                                                  options[optionIndex]);
-                                            },
-                                            child: Container(
-                                              margin: const EdgeInsets.only(
-                                                  bottom: 5),
-                                              child: Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Stack(
-                                                      children: [
-                                                        LinearProgressIndicator(
-                                                          minHeight: 30,
-                                                          value: _hasVoted
-                                                              ? _votes[
-                                                                      optionIndex] /
-                                                                  100
-                                                              : 0,
-                                                          backgroundColor:
-                                                              Colors.white,
-                                                        ),
-                                                        Container(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .symmetric(
-                                                                  horizontal:
-                                                                      10),
-                                                          height: 30,
-                                                          child: Text(options[
-                                                              optionIndex]),
-                                                        )
-                                                      ],
-                                                    ),
+                                                Container(
+                                                  alignment:
+                                                      Alignment.center,
+                                                  padding:
+                                                      const EdgeInsets
+                                                          .symmetric(
+                                                    horizontal: 10,
                                                   ),
-                                                  const SizedBox(
-                                                    width: 20,
-                                                  ),
-                                                  Text(
-                                                    _hasVoted
-                                                        ? '${_votes[optionIndex]}%'
-                                                        : 'Tap to Vote',
-                                                    style: _hasVoted
-                                                        ? TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold)
-                                                        : null,
-                                                  ),
-                                                ],
-                                              ),
+                                                  height: 30,
+                                                  child: Text(
+                                                      event.options[
+                                                          optionIndex]),
+                                                )
+                                              ],
                                             ),
-                                          );
-                                        }),
-                                        _hasVoted
-                                            ? Text(
-                                                "Total Votes: ${_totalVotes()}")
-                                            : const SizedBox()
-                                      ],
+                                          ),
+                                          const SizedBox(width: 20),
+                                          Text(
+                                            event.hasVoted
+                                                ? '${event.votes[optionIndex]}%'
+                                                : 'Tap to Vote',
+                                            style: event.hasVoted
+                                                ? TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                  )
+                                                : null,
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   );
-                                })
+                                }),
+                                event.hasVoted
+                                    ? Text(
+                                        "Total Votes: ${event.totalVotes()}")
+                                    : const SizedBox()
                               ],
                             ),
-                          );
-                        },
-                      );
-                    }
+                          ),
+                        ],
+                      ),
+                    );
                   },
                 ),
               ),
