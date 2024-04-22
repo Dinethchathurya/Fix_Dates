@@ -1,6 +1,10 @@
 //import 'package:fix_dates_app/Screens/Auth/auth_page.dart';
 //flutter
 import 'package:firebase_core/firebase_core.dart';
+
+import 'package:fix_dates_app/Screens/Auth/auth_page.dart';
+import 'package:fix_dates_app/Screens/Auth/logout.dart';
+
 import 'package:flutter/material.dart';
 
 //import Basic Screens
@@ -18,7 +22,9 @@ import 'Screens/Settings/LogOut.dart';
 import 'Screens/Settings/PrivacyPolicy.dart';
 import 'Screens/Settings/Settings.dart';
 import 'Screens/Settings/TermsAndCondition.dart';
+
 import 'database/UpdateUserDetails.dart';
+
 import 'firebase_options.dart';
 
 void main() async {
@@ -35,18 +41,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //home: LogInYourAccount(),
-      initialRoute: '/testuserdetails',
+
+      initialRoute: '/AuthPage',
+
 
       routes: {
         //basic routes
         '/': (context) => Inbox(),
         '/CreateGroup': (context) => CreateGroup(),
-        '/CreateAnEvent': (context) => CreateAnEvent(),
+      //  '/CreateAnEvent': (context) => CreateAnEvent(),
         //login and registrations routes
+
         '/LogInYourAccount': (context) => LogInYourAccount(
               onTap: () {},
             ),
+
+        '/AuthPage': (context) => AuthPage(),
+       
+        '/Logout': (context) => Logout(),
+
         '/CreateAnAccount': (context) => CreateAnAccount(
               onTap: () {},
             ),
@@ -60,31 +73,9 @@ class MyApp extends StatelessWidget {
         '/PrivacyPolicy': (context) => PrivacyPolicy(),
         '/TermsAndCondition': (context) => TermsAndCondition(),
         '/LogOut': (context) => LogOut(),
+
         '/testuserdetails': (context) => TestUser(),
       },
-    );
-  }
-}
-
-class TestUser extends StatelessWidget {
-  const TestUser({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: TextButton(
-          onPressed: () {
-            // GetUserData getUserData = GetUserData();
-            // getUserData.getUserData();
-
-            UpdateUserDetails updateUserDetails = UpdateUserDetails();
-            updateUserDetails.update();
-            //
-          },
-          child: Text('click'),
-        ),
-      ),
     );
   }
 }
