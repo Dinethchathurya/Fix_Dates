@@ -1,20 +1,7 @@
 import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-// class GetUsersGroups {
-//   var db = FirebaseFirestore.instance;
-//   var auth = FirebaseAuth.instance;
-//   var user = "buthsara@gmail.com";
-//   List<dynamic> groups = [];
-
-//  StreamSubscription<DocumentSnapshot>? groupsSubscription;
-//
-//   Stream<List<dynamic>> getGroups() {
-//     final docRef = db.collection("tempUsersTable").doc(user);
-//     return docRef.snapshots().map((doc) => List.from(doc['groups']));
-//   }
-// }
 
 class GetUsersGroups {
   var db = FirebaseFirestore.instance;
